@@ -245,11 +245,12 @@ Compilation
 
 Using g++:
 
-g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT
+```g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT```
 
 On Windows:
-
+```
 g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT.exe
+```
 Usage
 Interactive Mode
 
@@ -258,7 +259,7 @@ Start the interactive command-line environment:
 HILBERT --interactive
 
 Available commands include:
-
+```
 prove <statement>
 counterexample <statement>
 generate
@@ -296,15 +297,17 @@ Search for a Counterexample
 HILBERT --counterexample "a*(b+c)=a*b+a+b*c"
 Run Autonomous Discovery
 HILBERT --discover
+```
 
 Configure the number of research rounds:
-
+```
 HILBERT --discover --research-rounds 5
 Run Active Research
 HILBERT --active-research
+```
 
 This mode performs a focused autonomous research run using hypothesis generation, testing, proof search, and theory-building mechanisms.
-
+```
 Run Autonomous Research Core
 HILBERT --v20
 View the Knowledge Base
@@ -315,9 +318,9 @@ View Generated Theories
 HILBERT --theories
 View the Knowledge Graph
 HILBERT --graph
-
+```
 Export the graph in DOT format:
-
+```
 HILBERT --graph-dot graph.dot
 View the Research Frontier
 HILBERT --frontier
@@ -336,9 +339,9 @@ HILBERT --missions --mission-budget 10 --mission-steps 5
 Fuzz Testing
 HILBERT --fuzz --tests 100
 Project Philosophy
-
+```
 H.I.L.B.E.R.T. deliberately separates different levels of mathematical confidence.
-
+```
 1. Empirical Evidence
 
 A mathematical statement has survived a finite number of tests.
@@ -357,6 +360,7 @@ A proof certificate has been generated and independently accepted by the verific
 
 Only this level is treated as a formally verified mathematical result by H.I.L.B.E.R.T.
 
+```
 This distinction is central to the architecture of the project.
 
 Current Scope
@@ -392,7 +396,7 @@ Web-based interactive interfaces
 Distributed research agents
 Formalized proof export
 Machine learning-assisted heuristic guidance
-
+```
 Repository Structure
 HILBERT/
 |
@@ -423,6 +427,7 @@ HILBERT/
 +-- .gitignore
 |
 +-- README.md
+```
 
 Some generated files may be created or updated during research and persistence operations.
 
