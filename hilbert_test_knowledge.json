@@ -1,0 +1,6 @@
+{
+  "format":"HILBERT-knowledge-v1",
+  "records":[
+    {"id":1,"status":"THEOREM","statement":"(a + b) = (b + a)","generator":"user_request","ancestry":"user","kernelReason":"both sides independently normalized to the same exact polynomial","score":{"novelty":0.75,"generality":0.666667,"structure":0.8,"compression":0.35,"evidence":1,"triviality":0.8,"total":0.493333},"evidence":{"tests":10,"counterexample":null,"reason":""},"proof":{"finalKey":"POLY:1@a^1;|1@b^1;|","steps":[{"number":1,"before":"(a + b)","after":"POLY:1@a^1;|1@b^1;|","rule":"polynomial_normalization","justification":"exact polynomial normalization"},{"number":2,"before":"(b + a)","after":"POLY:1@a^1;|1@b^1;|","rule":"polynomial_normalization","justification":"exact polynomial normalization"}]}}
+  ]
+}

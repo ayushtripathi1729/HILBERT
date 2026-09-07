@@ -1,0 +1,5 @@
+HILBERT-CERTIFICATE-V1
+STATEMENT	(a + b) = (b - a)
+FINALKEY	POLY:1@a^1;|1@b^1;|
+STEP	1	polynomial_normalization	(a + b)	POLY:1@a^1;|1@b^1;|	exact polynomial normalization
+STEP	2	polynomial_normalization	(b - a)	POLY:1@a^1;|1@b^1;|	exact polynomial normalization

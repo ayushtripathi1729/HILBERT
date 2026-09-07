@@ -1,0 +1,453 @@
+HILBERT-BRAIN-5
+THEOREM	nCr(n,k) = nCr(n,(n + -(k))) assuming n >= 0 and k >= 0 and k <= n
+THEOREM	nCr(n,(n + -(k))) = nCr(n,(n + -((n + -(k))))) assuming n >= 0 and (n + -(k)) >= 0 and (n + -(k)) <= n
+THEOREM	nCr(n,k) = (nCr((n + -(1)),(k + -(1))) + nCr((n + -(1)),k)) assuming n >= 1 and k >= 1 and k <= n
+THEOREM	nCr((n + -(1)),(k + -(1))) = nCr((n + -(1)),((n + -(1)) + -((k + -(1))))) assuming (n + -(1)) >= 0 and (k + -(1)) >= 0 and (k + -(1)) <= (n + -(1))
+THEOREM	nCr((n + -(1)),k) = nCr((n + -(1)),((n + -(1)) + -(k))) assuming (n + -(1)) >= 0 and k >= 0 and k <= (n + -(1))
+THEOREM	fib((n + 2)) = (fib((n + 1)) + fib(n)) assuming n >= 0
+THEOREM	factorial((n + 1)) = ((n + 1) * factorial(n)) assuming n >= 0
+THEOREM	derangements(n) = ((n + -(1)) * (derangements((n + -(1))) + derangements((n + -(2))))) assuming n >= 2
+THEOREM	derangements((n + -(1))) = (((n + -(1)) + -(1)) * (derangements(((n + -(1)) + -(1))) + derangements(((n + -(1)) + -(2))))) assuming (n + -(1)) >= 2
+THEOREM	derangements((n + -(2))) = (((n + -(2)) + -(1)) * (derangements(((n + -(2)) + -(1))) + derangements(((n + -(2)) + -(2))))) assuming (n + -(2)) >= 2
+THEOREM	derangements(((n + t) + -(1))) = ((((n + t) + -(1)) + -(1)) * (derangements((((n + t) + -(1)) + -(1))) + derangements((((n + t) + -(1)) + -(2))))) assuming ((n + t) + -(1)) >= 2
+THEOREM	derangements((((n + t) + -(1)) + -(1))) = (((((n + t) + -(1)) + -(1)) + -(1)) * (derangements(((((n + t) + -(1)) + -(1)) + -(1))) + derangements(((((n + t) + -(1)) + -(1)) + -(2))))) assuming (((n + t) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((n + t) + -(1)) + -(2))) = (((((n + t) + -(1)) + -(2)) + -(1)) * (derangements(((((n + t) + -(1)) + -(2)) + -(1))) + derangements(((((n + t) + -(1)) + -(2)) + -(2))))) assuming (((n + t) + -(1)) + -(2)) >= 2
+THEOREM	((x + x) * (u + z)) = (((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z))
+THEOREM	(((b + c) * (z + z)) * (b + w)) = (((((((((1 * ((1 * b) * z)) * b) + ((1 * ((1 * b) * z)) * w)) + ((1 * ((1 * b) * z)) * b)) + ((1 * ((1 * b) * z)) * w)) + ((1 * ((1 * c) * z)) * b)) + ((1 * ((1 * c) * z)) * w)) + ((1 * ((1 * c) * z)) * b)) + ((1 * ((1 * c) * z)) * w))
+THEOREM	((a + v) * (w + v)) = (((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v))
+THEOREM	((z + c) * (a + w)) = (((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w))
+THEOREM	((u + u) * (z + b)) = (((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b))
+THEOREM	(((y + b) * (a + y)) * (w + u)) = (((((((((1 * ((1 * y) * a)) * w) + ((1 * ((1 * y) * a)) * u)) + ((1 * ((1 * y) * y)) * w)) + ((1 * ((1 * y) * y)) * u)) + ((1 * ((1 * b) * a)) * w)) + ((1 * ((1 * b) * a)) * u)) + ((1 * ((1 * b) * y)) * w)) + ((1 * ((1 * b) * y)) * u))
+THEOREM	((x + b) * (b + a)) = (((((1 * x) * b) + ((1 * x) * a)) + ((1 * b) * b)) + ((1 * b) * a))
+THEOREM	(((x + w) * (b + z)) * (a + w)) = (((((((((1 * ((1 * x) * b)) * a) + ((1 * ((1 * x) * b)) * w)) + ((1 * ((1 * x) * z)) * a)) + ((1 * ((1 * x) * z)) * w)) + ((1 * ((1 * w) * b)) * a)) + ((1 * ((1 * w) * b)) * w)) + ((1 * ((1 * w) * z)) * a)) + ((1 * ((1 * w) * z)) * w))
+THEOREM	nCr(x,a) = nCr(x,(x + -(a))) assuming x >= 0 and a >= 0 and a <= x
+THEOREM	nCr(x,(x + -(a))) = nCr(x,(x + -((x + -(a))))) assuming x >= 0 and (x + -(a)) >= 0 and (x + -(a)) <= x
+THEOREM	nCr((a ^ 3),x) = nCr((a ^ 3),((a ^ 3) + -(x))) assuming (a ^ 3) >= 0 and x >= 0 and x <= (a ^ 3)
+THEOREM	nCr((a ^ 3),((a ^ 3) + -(x))) = nCr((a ^ 3),((a ^ 3) + -(((a ^ 3) + -(x))))) assuming (a ^ 3) >= 0 and ((a ^ 3) + -(x)) >= 0 and ((a ^ 3) + -(x)) <= (a ^ 3)
+THEOREM	nCr((c + v),v) = nCr((c + v),((c + v) + -(v))) assuming (c + v) >= 0 and v >= 0 and v <= (c + v)
+THEOREM	nCr((c + v),((c + v) + -(v))) = nCr((c + v),((c + v) + -(((c + v) + -(v))))) assuming (c + v) >= 0 and ((c + v) + -(v)) >= 0 and ((c + v) + -(v)) <= (c + v)
+THEOREM	nCr(v,m) = nCr(v,(v + -(m))) assuming v >= 0 and m >= 0 and m <= v
+THEOREM	nCr(v,(v + -(m))) = nCr(v,(v + -((v + -(m))))) assuming v >= 0 and (v + -(m)) >= 0 and (v + -(m)) <= v
+THEOREM	nCr((c + x),(u ^ 1)) = nCr((c + x),((c + x) + -((u ^ 1)))) assuming (c + x) >= 0 and (u ^ 1) >= 0 and (u ^ 1) <= (c + x)
+THEOREM	nCr((c + x),((c + x) + -((u ^ 1)))) = nCr((c + x),((c + x) + -(((c + x) + -((u ^ 1)))))) assuming (c + x) >= 0 and ((c + x) + -((u ^ 1))) >= 0 and ((c + x) + -((u ^ 1))) <= (c + x)
+THEOREM	nCr(y,((k + z) + (k ^ 2))) = nCr(y,(y + -(((k + z) + (k ^ 2))))) assuming y >= 0 and ((k + z) + (k ^ 2)) >= 0 and ((k + z) + (k ^ 2)) <= y
+THEOREM	nCr(y,(y + -(((k + z) + (k ^ 2))))) = nCr(y,(y + -((y + -(((k + z) + (k ^ 2))))))) assuming y >= 0 and (y + -(((k + z) + (k ^ 2)))) >= 0 and (y + -(((k + z) + (k ^ 2)))) <= y
+THEOREM	nCr(-((z ^ 0)),-(b)) = nCr(-((z ^ 0)),(-((z ^ 0)) + -(-(b)))) assuming -((z ^ 0)) >= 0 and -(b) >= 0 and -(b) <= -((z ^ 0))
+THEOREM	nCr(-((z ^ 0)),(-((z ^ 0)) + -(-(b)))) = nCr(-((z ^ 0)),(-((z ^ 0)) + -((-((z ^ 0)) + -(-(b)))))) assuming -((z ^ 0)) >= 0 and (-((z ^ 0)) + -(-(b))) >= 0 and (-((z ^ 0)) + -(-(b))) <= -((z ^ 0))
+THEOREM	nCr(u,(m * v)) = nCr(u,(u + -((m * v)))) assuming u >= 0 and (m * v) >= 0 and (m * v) <= u
+THEOREM	nCr(u,(u + -((m * v)))) = nCr(u,(u + -((u + -((m * v)))))) assuming u >= 0 and (u + -((m * v))) >= 0 and (u + -((m * v))) <= u
+THEOREM	nCr(((y ^ 2) * (k * y)),u) = (nCr((((y ^ 2) * (k * y)) + -(1)),(u + -(1))) + nCr((((y ^ 2) * (k * y)) + -(1)),u)) assuming ((y ^ 2) * (k * y)) >= 1 and u >= 1 and u <= ((y ^ 2) * (k * y))
+THEOREM	nCr(((y ^ 2) * (k * y)),u) = nCr(((y ^ 2) * (k * y)),(((y ^ 2) * (k * y)) + -(u))) assuming ((y ^ 2) * (k * y)) >= 0 and u >= 0 and u <= ((y ^ 2) * (k * y))
+THEOREM	nCr((((y ^ 2) * (k * y)) + -(1)),(u + -(1))) = nCr((((y ^ 2) * (k * y)) + -(1)),((((y ^ 2) * (k * y)) + -(1)) + -((u + -(1))))) assuming (((y ^ 2) * (k * y)) + -(1)) >= 0 and (u + -(1)) >= 0 and (u + -(1)) <= (((y ^ 2) * (k * y)) + -(1))
+THEOREM	nCr((((y ^ 2) * (k * y)) + -(1)),u) = nCr((((y ^ 2) * (k * y)) + -(1)),((((y ^ 2) * (k * y)) + -(1)) + -(u))) assuming (((y ^ 2) * (k * y)) + -(1)) >= 0 and u >= 0 and u <= (((y ^ 2) * (k * y)) + -(1))
+THEOREM	nCr(u,x) = (nCr((u + -(1)),(x + -(1))) + nCr((u + -(1)),x)) assuming u >= 1 and x >= 1 and x <= u
+THEOREM	nCr(u,x) = nCr(u,(u + -(x))) assuming u >= 0 and x >= 0 and x <= u
+THEOREM	nCr((u + -(1)),(x + -(1))) = nCr((u + -(1)),((u + -(1)) + -((x + -(1))))) assuming (u + -(1)) >= 0 and (x + -(1)) >= 0 and (x + -(1)) <= (u + -(1))
+THEOREM	nCr((u + -(1)),x) = nCr((u + -(1)),((u + -(1)) + -(x))) assuming (u + -(1)) >= 0 and x >= 0 and x <= (u + -(1))
+THEOREM	nCr((y + v),-((b + y))) = (nCr(((y + v) + -(1)),(-((b + y)) + -(1))) + nCr(((y + v) + -(1)),-((b + y)))) assuming (y + v) >= 1 and -((b + y)) >= 1 and -((b + y)) <= (y + v)
+THEOREM	nCr((y + v),-((b + y))) = nCr((y + v),((y + v) + -(-((b + y))))) assuming (y + v) >= 0 and -((b + y)) >= 0 and -((b + y)) <= (y + v)
+THEOREM	nCr(((y + v) + -(1)),(-((b + y)) + -(1))) = nCr(((y + v) + -(1)),(((y + v) + -(1)) + -((-((b + y)) + -(1))))) assuming ((y + v) + -(1)) >= 0 and (-((b + y)) + -(1)) >= 0 and (-((b + y)) + -(1)) <= ((y + v) + -(1))
+THEOREM	nCr(((y + v) + -(1)),-((b + y))) = nCr(((y + v) + -(1)),(((y + v) + -(1)) + -(-((b + y))))) assuming ((y + v) + -(1)) >= 0 and -((b + y)) >= 0 and -((b + y)) <= ((y + v) + -(1))
+THEOREM	nCr((u + n),-(a)) = (nCr(((u + n) + -(1)),(-(a) + -(1))) + nCr(((u + n) + -(1)),-(a))) assuming (u + n) >= 1 and -(a) >= 1 and -(a) <= (u + n)
+THEOREM	nCr((u + n),-(a)) = nCr((u + n),((u + n) + -(-(a)))) assuming (u + n) >= 0 and -(a) >= 0 and -(a) <= (u + n)
+THEOREM	nCr(((u + n) + -(1)),(-(a) + -(1))) = nCr(((u + n) + -(1)),(((u + n) + -(1)) + -((-(a) + -(1))))) assuming ((u + n) + -(1)) >= 0 and (-(a) + -(1)) >= 0 and (-(a) + -(1)) <= ((u + n) + -(1))
+THEOREM	nCr(((u + n) + -(1)),-(a)) = nCr(((u + n) + -(1)),(((u + n) + -(1)) + -(-(a)))) assuming ((u + n) + -(1)) >= 0 and -(a) >= 0 and -(a) <= ((u + n) + -(1))
+THEOREM	nCr(((m ^ 3) ^ 0),(v + (k + z))) = (nCr((((m ^ 3) ^ 0) + -(1)),((v + (k + z)) + -(1))) + nCr((((m ^ 3) ^ 0) + -(1)),(v + (k + z)))) assuming ((m ^ 3) ^ 0) >= 1 and (v + (k + z)) >= 1 and (v + (k + z)) <= ((m ^ 3) ^ 0)
+THEOREM	nCr(((m ^ 3) ^ 0),(v + (k + z))) = nCr(((m ^ 3) ^ 0),(((m ^ 3) ^ 0) + -((v + (k + z))))) assuming ((m ^ 3) ^ 0) >= 0 and (v + (k + z)) >= 0 and (v + (k + z)) <= ((m ^ 3) ^ 0)
+THEOREM	nCr((((m ^ 3) ^ 0) + -(1)),((v + (k + z)) + -(1))) = nCr((((m ^ 3) ^ 0) + -(1)),((((m ^ 3) ^ 0) + -(1)) + -(((v + (k + z)) + -(1))))) assuming (((m ^ 3) ^ 0) + -(1)) >= 0 and ((v + (k + z)) + -(1)) >= 0 and ((v + (k + z)) + -(1)) <= (((m ^ 3) ^ 0) + -(1))
+THEOREM	nCr((((m ^ 3) ^ 0) + -(1)),(v + (k + z))) = nCr((((m ^ 3) ^ 0) + -(1)),((((m ^ 3) ^ 0) + -(1)) + -((v + (k + z))))) assuming (((m ^ 3) ^ 0) + -(1)) >= 0 and (v + (k + z)) >= 0 and (v + (k + z)) <= (((m ^ 3) ^ 0) + -(1))
+THEOREM	nCr(c,(u ^ 2)) = (nCr((c + -(1)),((u ^ 2) + -(1))) + nCr((c + -(1)),(u ^ 2))) assuming c >= 1 and (u ^ 2) >= 1 and (u ^ 2) <= c
+THEOREM	nCr(c,(u ^ 2)) = nCr(c,(c + -((u ^ 2)))) assuming c >= 0 and (u ^ 2) >= 0 and (u ^ 2) <= c
+THEOREM	nCr((c + -(1)),((u ^ 2) + -(1))) = nCr((c + -(1)),((c + -(1)) + -(((u ^ 2) + -(1))))) assuming (c + -(1)) >= 0 and ((u ^ 2) + -(1)) >= 0 and ((u ^ 2) + -(1)) <= (c + -(1))
+THEOREM	nCr((c + -(1)),(u ^ 2)) = nCr((c + -(1)),((c + -(1)) + -((u ^ 2)))) assuming (c + -(1)) >= 0 and (u ^ 2) >= 0 and (u ^ 2) <= (c + -(1))
+THEOREM	nCr(((m ^ 0) + (k + m)),(b + m)) = (nCr((((m ^ 0) + (k + m)) + -(1)),((b + m) + -(1))) + nCr((((m ^ 0) + (k + m)) + -(1)),(b + m))) assuming ((m ^ 0) + (k + m)) >= 1 and (b + m) >= 1 and (b + m) <= ((m ^ 0) + (k + m))
+THEOREM	nCr(((m ^ 0) + (k + m)),(b + m)) = nCr(((m ^ 0) + (k + m)),(((m ^ 0) + (k + m)) + -((b + m)))) assuming ((m ^ 0) + (k + m)) >= 0 and (b + m) >= 0 and (b + m) <= ((m ^ 0) + (k + m))
+THEOREM	nCr((((m ^ 0) + (k + m)) + -(1)),((b + m) + -(1))) = nCr((((m ^ 0) + (k + m)) + -(1)),((((m ^ 0) + (k + m)) + -(1)) + -(((b + m) + -(1))))) assuming (((m ^ 0) + (k + m)) + -(1)) >= 0 and ((b + m) + -(1)) >= 0 and ((b + m) + -(1)) <= (((m ^ 0) + (k + m)) + -(1))
+THEOREM	nCr((((m ^ 0) + (k + m)) + -(1)),(b + m)) = nCr((((m ^ 0) + (k + m)) + -(1)),((((m ^ 0) + (k + m)) + -(1)) + -((b + m)))) assuming (((m ^ 0) + (k + m)) + -(1)) >= 0 and (b + m) >= 0 and (b + m) <= (((m ^ 0) + (k + m)) + -(1))
+THEOREM	nCr(((c ^ 3) + (m ^ 1)),-(v)) = (nCr((((c ^ 3) + (m ^ 1)) + -(1)),(-(v) + -(1))) + nCr((((c ^ 3) + (m ^ 1)) + -(1)),-(v))) assuming ((c ^ 3) + (m ^ 1)) >= 1 and -(v) >= 1 and -(v) <= ((c ^ 3) + (m ^ 1))
+THEOREM	nCr(((c ^ 3) + (m ^ 1)),-(v)) = nCr(((c ^ 3) + (m ^ 1)),(((c ^ 3) + (m ^ 1)) + -(-(v)))) assuming ((c ^ 3) + (m ^ 1)) >= 0 and -(v) >= 0 and -(v) <= ((c ^ 3) + (m ^ 1))
+THEOREM	nCr((((c ^ 3) + (m ^ 1)) + -(1)),(-(v) + -(1))) = nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -((-(v) + -(1))))) assuming (((c ^ 3) + (m ^ 1)) + -(1)) >= 0 and (-(v) + -(1)) >= 0 and (-(v) + -(1)) <= (((c ^ 3) + (m ^ 1)) + -(1))
+THEOREM	nCr((((c ^ 3) + (m ^ 1)) + -(1)),-(v)) = nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -(-(v)))) assuming (((c ^ 3) + (m ^ 1)) + -(1)) >= 0 and -(v) >= 0 and -(v) <= (((c ^ 3) + (m ^ 1)) + -(1))
+THEOREM	(((x + x) * (u + z)) + ((a + v) * (w + v))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v)))
+THEOREM	(((x + x) * (u + z)) + -(((a + v) * (w + v)))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + -((((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v))))
+THEOREM	(((x + x) * (u + z)) * ((a + v) * (w + v))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) * (((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v)))
+THEOREM	(((x + x) * (u + z)) + ((z + c) * (a + w))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w)))
+THEOREM	(((x + x) * (u + z)) + -(((z + c) * (a + w)))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + -((((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w))))
+THEOREM	(((x + x) * (u + z)) * ((z + c) * (a + w))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) * (((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w)))
+THEOREM	(((x + x) * (u + z)) + ((u + u) * (z + b))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b)))
+THEOREM	(((x + x) * (u + z)) + -(((u + u) * (z + b)))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + -((((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b))))
+THEOREM	(((x + x) * (u + z)) * ((u + u) * (z + b))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) * (((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b)))
+THEOREM	(((x + x) * (u + z)) + ((x + b) * (b + a))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * x) * b) + ((1 * x) * a)) + ((1 * b) * b)) + ((1 * b) * a)))
+THEOREM	(a * 1) = a
+THEOREM	(a * b) = (b * a)
+THEOREM	((a + a) + a) = (a + (a + a))
+THEOREM	tau(360) = 24
+THEOREM	(b * (c + x)) = ((b * c) + (b * x))
+THEOREM	(v + 0) = v
+THEOREM	stirling2(6,3) = 90
+THEOREM	(a * c) = (c * a)
+THEOREM	((w + z) * u) = ((w * u) + (z * u))
+THEOREM	((y + v) * z) = ((y * z) + (v * z))
+THEOREM	((v + y) * w) = ((v * w) + (y * w))
+THEOREM	((z + x) * y) = ((z * y) + (x * y))
+THEOREM	(((z * t) + (x + 1)) * (y + t)) = (((z * t) * (y + t)) + ((x + 1) * (y + t)))
+THEOREM	(((v + -(1)) + (y ^ 2)) * ((w * t) + 1)) = (((v + -(1)) * ((w * t) + 1)) + ((y ^ 2) * ((w * t) + 1)))
+THEOREM	((((y * t) + 1) + (v ^ 2)) * ((z * t) + 1)) = ((((y * t) + 1) * ((z * t) + 1)) + ((v ^ 2) * ((z * t) + 1)))
+THEOREM	((w + (z + 1)) * (u + t)) = ((w * (u + t)) + ((z + 1) * (u + t)))
+THEOREM	((a + -(1)) * (c * t)) = ((c * t) * (a + -(1)))
+THEOREM	((a + -(1)) * (a * t)) = ((a * t) * (a + -(1)))
+THEOREM	((0 + -(1)) * (c * t)) = ((c * t) * (0 + -(1)))
+THEOREM	((1 + -(1)) * (c * t)) = ((c * t) * (1 + -(1)))
+THEOREM	((-(1) + -(1)) * (c * t)) = ((c * t) * (-(1) + -(1)))
+THEOREM	((a + -(1)) * (1 * t)) = ((1 * t) * (a + -(1)))
+THEOREM	((a + -(1)) * (-(1) * t)) = ((-(1) * t) * (a + -(1)))
+THEOREM	((__hilbert_swap_tmp + -(1)) * (a * t)) = ((a * t) * (__hilbert_swap_tmp + -(1)))
+THEOREM	(((a * t) + -(1)) * (1 * (t + -(1)))) = ((1 * (t + -(1))) * ((a * t) + -(1)))
+THEOREM	(((a + -(1)) + -(1)) * (-(1) * ((t * t) + 1))) = ((-(1) * ((t * t) + 1)) * ((a + -(1)) + -(1)))
+THEOREM	(((__hilbert_swap_tmp + 1) + -(1)) * ((a + t) * (t * t))) = (((a + t) * (t * t)) * ((__hilbert_swap_tmp + 1) + -(1)))
+THEOREM	((((__hilbert_swap_tmp + 1) + 1) + -(1)) * ((a + t) * (t * t))) = (((a + t) * (t * t)) * (((__hilbert_swap_tmp + 1) + 1) + -(1)))
+THEOREM	(((__hilbert_swap_tmp + 1) + -(1)) * (((a + 1) + t) * (t * t))) = ((((a + 1) + t) * (t * t)) * ((__hilbert_swap_tmp + 1) + -(1)))
+THEOREM	(((__hilbert_swap_tmp + 1) + -(1)) * ((a + (t + 1)) * ((t + 1) * (t + 1)))) = (((a + (t + 1)) * ((t + 1) * (t + 1))) * ((__hilbert_swap_tmp + 1) + -(1)))
+THEOREM	((((a + 1) + -(1)) + -(1)) * (-(1) * ((t * t) + 1))) = ((-(1) * ((t * t) + 1)) * (((a + 1) + -(1)) + -(1)))
+THEOREM	(((a + -(1)) + -(1)) * (-(1) * (((t + 1) * (t + 1)) + 1))) = ((-(1) * (((t + 1) * (t + 1)) + 1)) * ((a + -(1)) + -(1)))
+THEOREM	((((a + 1) * t) + -(1)) * (1 * (t + -(1)))) = ((1 * (t + -(1))) * (((a + 1) * t) + -(1)))
+THEOREM	(((a * (t + 1)) + -(1)) * (1 * ((t + 1) + -(1)))) = ((1 * ((t + 1) + -(1))) * ((a * (t + 1)) + -(1)))
+THEOREM	(((__hilbert_swap_tmp + 1) + -(1)) * (a * t)) = ((a * t) * ((__hilbert_swap_tmp + 1) + -(1)))
+THEOREM	((a * b) + ((a + a) + a)) = ((b * a) + (a + (a + a)))
+THEOREM	((a * b) + -(((a + a) + a))) = ((b * a) + -((a + (a + a))))
+THEOREM	((a * b) * ((a + a) + a)) = ((b * a) * (a + (a + a)))
+THEOREM	((a * b) + (b * (c + x))) = ((b * a) + ((b * c) + (b * x)))
+THEOREM	((a * b) + -((b * (c + x)))) = ((b * a) + -(((b * c) + (b * x))))
+THEOREM	((a * b) * (b * (c + x))) = ((b * a) * ((b * c) + (b * x)))
+THEOREM	((a * b) + (v + 0)) = ((b * a) + v)
+THEOREM	((a * b) + -((v + 0))) = ((b * a) + -(v))
+THEOREM	((a * (b * t)) + -(((v + 1) + 0))) = (((b * t) * a) + -((v + 1)))
+THEOREM	(((a * t) * (b + 1)) + ((v + 1) + 0)) = (((b + 1) * (a * t)) + (v + 1))
+THEOREM	(((a + -(1)) * b) * (b * ((c + 1) + x))) = ((b * (a + -(1))) * ((b * (c + 1)) + (b * x)))
+THEOREM	(((a + 1) * b) + -((b * ((c ^ 2) + ((x * t) + 1))))) = ((b * (a + 1)) + -(((b * (c ^ 2)) + (b * ((x * t) + 1)))))
+THEOREM	nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -(-(v)))) = nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -(((((c ^ 3) + (m ^ 1)) + -(1)) + -(-(v)))))) assuming (((c ^ 3) + (m ^ 1)) + -(1)) >= 0 and ((((c ^ 3) + (m ^ 1)) + -(1)) + -(-(v))) >= 0 and ((((c ^ 3) + (m ^ 1)) + -(1)) + -(-(v))) <= (((c ^ 3) + (m ^ 1)) + -(1))
+THEOREM	nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -((-(v) + -(1))))) = nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -(((((c ^ 3) + (m ^ 1)) + -(1)) + -((-(v) + -(1))))))) assuming (((c ^ 3) + (m ^ 1)) + -(1)) >= 0 and ((((c ^ 3) + (m ^ 1)) + -(1)) + -((-(v) + -(1)))) >= 0 and ((((c ^ 3) + (m ^ 1)) + -(1)) + -((-(v) + -(1)))) <= (((c ^ 3) + (m ^ 1)) + -(1))
+THEOREM	(((v + a) * (c + y)) * (b + v)) = (((((((((1 * ((1 * v) * c)) * b) + ((1 * ((1 * v) * c)) * v)) + ((1 * ((1 * v) * y)) * b)) + ((1 * ((1 * v) * y)) * v)) + ((1 * ((1 * a) * c)) * b)) + ((1 * ((1 * a) * c)) * v)) + ((1 * ((1 * a) * y)) * b)) + ((1 * ((1 * a) * y)) * v))
+THEOREM	(((y + c) * (v + b)) * (y + a)) = (((((((((1 * ((1 * y) * v)) * y) + ((1 * ((1 * y) * v)) * a)) + ((1 * ((1 * y) * b)) * y)) + ((1 * ((1 * y) * b)) * a)) + ((1 * ((1 * c) * v)) * y)) + ((1 * ((1 * c) * v)) * a)) + ((1 * ((1 * c) * b)) * y)) + ((1 * ((1 * c) * b)) * a))
+THEOREM	(((w + u) * (v + c)) * (v + v)) = (((((((((1 * ((1 * w) * v)) * v) + ((1 * ((1 * w) * v)) * v)) + ((1 * ((1 * w) * c)) * v)) + ((1 * ((1 * w) * c)) * v)) + ((1 * ((1 * u) * v)) * v)) + ((1 * ((1 * u) * v)) * v)) + ((1 * ((1 * u) * c)) * v)) + ((1 * ((1 * u) * c)) * v))
+THEOREM	(((y + a) * (w + a)) * (c + a)) = (((((((((1 * ((1 * y) * w)) * c) + ((1 * ((1 * y) * w)) * a)) + ((1 * ((1 * y) * a)) * c)) + ((1 * ((1 * y) * a)) * a)) + ((1 * ((1 * a) * w)) * c)) + ((1 * ((1 * a) * w)) * a)) + ((1 * ((1 * a) * a)) * c)) + ((1 * ((1 * a) * a)) * a))
+THEOREM	((a + c) * (b + b)) = (((((1 * a) * b) + ((1 * a) * b)) + ((1 * c) * b)) + ((1 * c) * b))
+THEOREM	((c + c) * (w + a)) = (((((1 * c) * w) + ((1 * c) * a)) + ((1 * c) * w)) + ((1 * c) * a))
+THEOREM	((y + y) * (u + b)) = (((((1 * y) * u) + ((1 * y) * b)) + ((1 * y) * u)) + ((1 * y) * b))
+THEOREM	(((y + z) * (v + x)) * (y + z)) = (((((((((1 * ((1 * y) * v)) * y) + ((1 * ((1 * y) * v)) * z)) + ((1 * ((1 * y) * x)) * y)) + ((1 * ((1 * y) * x)) * z)) + ((1 * ((1 * z) * v)) * y)) + ((1 * ((1 * z) * v)) * z)) + ((1 * ((1 * z) * x)) * y)) + ((1 * ((1 * z) * x)) * z))
+THEOREM	(((x + w) * (x + u)) * (z + a)) = (((((((((1 * ((1 * x) * x)) * z) + ((1 * ((1 * x) * x)) * a)) + ((1 * ((1 * x) * u)) * z)) + ((1 * ((1 * x) * u)) * a)) + ((1 * ((1 * w) * x)) * z)) + ((1 * ((1 * w) * x)) * a)) + ((1 * ((1 * w) * u)) * z)) + ((1 * ((1 * w) * u)) * a))
+THEOREM	((x + w) * (y + b)) = (((((1 * x) * y) + ((1 * x) * b)) + ((1 * w) * y)) + ((1 * w) * b))
+THEOREM	(((z + z) * (v + a)) * (x + c)) = (((((((((1 * ((1 * z) * v)) * x) + ((1 * ((1 * z) * v)) * c)) + ((1 * ((1 * z) * a)) * x)) + ((1 * ((1 * z) * a)) * c)) + ((1 * ((1 * z) * v)) * x)) + ((1 * ((1 * z) * v)) * c)) + ((1 * ((1 * z) * a)) * x)) + ((1 * ((1 * z) * a)) * c))
+THEOREM	((y + z) * (v + b)) = (((((1 * y) * v) + ((1 * y) * b)) + ((1 * z) * v)) + ((1 * z) * b))
+THEOREM	((a + x) * (a + v)) = (((((1 * a) * a) + ((1 * a) * v)) + ((1 * x) * a)) + ((1 * x) * v))
+THEOREM	(((z + z) * (u + y)) * (z + u)) = (((((((((1 * ((1 * z) * u)) * z) + ((1 * ((1 * z) * u)) * u)) + ((1 * ((1 * z) * y)) * z)) + ((1 * ((1 * z) * y)) * u)) + ((1 * ((1 * z) * u)) * z)) + ((1 * ((1 * z) * u)) * u)) + ((1 * ((1 * z) * y)) * z)) + ((1 * ((1 * z) * y)) * u))
+THEOREM	(((z + z) * (x + u)) * (u + u)) = (((((((((1 * ((1 * z) * x)) * u) + ((1 * ((1 * z) * x)) * u)) + ((1 * ((1 * z) * u)) * u)) + ((1 * ((1 * z) * u)) * u)) + ((1 * ((1 * z) * x)) * u)) + ((1 * ((1 * z) * x)) * u)) + ((1 * ((1 * z) * u)) * u)) + ((1 * ((1 * z) * u)) * u))
+THEOREM	(((z + y) * (a + b)) * (b + a)) = (((((((((1 * ((1 * z) * a)) * b) + ((1 * ((1 * z) * a)) * a)) + ((1 * ((1 * z) * b)) * b)) + ((1 * ((1 * z) * b)) * a)) + ((1 * ((1 * y) * a)) * b)) + ((1 * ((1 * y) * a)) * a)) + ((1 * ((1 * y) * b)) * b)) + ((1 * ((1 * y) * b)) * a))
+THEOREM	((w + v) * (c + a)) = (((((1 * w) * c) + ((1 * w) * a)) + ((1 * v) * c)) + ((1 * v) * a))
+THEOREM	((u + u) * (x + x)) = (((((1 * u) * x) + ((1 * u) * x)) + ((1 * u) * x)) + ((1 * u) * x))
+THEOREM	(((w + a) * (b + b)) * (c + b)) = (((((((((1 * ((1 * w) * b)) * c) + ((1 * ((1 * w) * b)) * b)) + ((1 * ((1 * w) * b)) * c)) + ((1 * ((1 * w) * b)) * b)) + ((1 * ((1 * a) * b)) * c)) + ((1 * ((1 * a) * b)) * b)) + ((1 * ((1 * a) * b)) * c)) + ((1 * ((1 * a) * b)) * b))
+THEOREM	(((b + u) * (z + c)) * (w + y)) = (((((((((1 * ((1 * b) * z)) * w) + ((1 * ((1 * b) * z)) * y)) + ((1 * ((1 * b) * c)) * w)) + ((1 * ((1 * b) * c)) * y)) + ((1 * ((1 * u) * z)) * w)) + ((1 * ((1 * u) * z)) * y)) + ((1 * ((1 * u) * c)) * w)) + ((1 * ((1 * u) * c)) * y))
+THEOREM	((c + b) * (b + c)) = (((((1 * c) * b) + ((1 * c) * c)) + ((1 * b) * b)) + ((1 * b) * c))
+THEOREM	(((y + z) * (y + z)) * (b + a)) = (((((((((1 * ((1 * y) * y)) * b) + ((1 * ((1 * y) * y)) * a)) + ((1 * ((1 * y) * z)) * b)) + ((1 * ((1 * y) * z)) * a)) + ((1 * ((1 * z) * y)) * b)) + ((1 * ((1 * z) * y)) * a)) + ((1 * ((1 * z) * z)) * b)) + ((1 * ((1 * z) * z)) * a))
+THEOREM	nCr(((y ^ 2) * (k * y)),(((y ^ 2) * (k * y)) + -(u))) = nCr(((y ^ 2) * (k * y)),(((y ^ 2) * (k * y)) + -((((y ^ 2) * (k * y)) + -(u))))) assuming ((y ^ 2) * (k * y)) >= 0 and (((y ^ 2) * (k * y)) + -(u)) >= 0 and (((y ^ 2) * (k * y)) + -(u)) <= ((y ^ 2) * (k * y))
+THEOREM	nCr(u,(u + -(x))) = nCr(u,(u + -((u + -(x))))) assuming u >= 0 and (u + -(x)) >= 0 and (u + -(x)) <= u
+THEOREM	nCr((y + v),((y + v) + -(-((b + y))))) = nCr((y + v),((y + v) + -(((y + v) + -(-((b + y))))))) assuming (y + v) >= 0 and ((y + v) + -(-((b + y)))) >= 0 and ((y + v) + -(-((b + y)))) <= (y + v)
+THEOREM	nCr((u + n),((u + n) + -(-(a)))) = nCr((u + n),((u + n) + -(((u + n) + -(-(a)))))) assuming (u + n) >= 0 and ((u + n) + -(-(a))) >= 0 and ((u + n) + -(-(a))) <= (u + n)
+THEOREM	nCr(((m ^ 3) ^ 0),(((m ^ 3) ^ 0) + -((v + (k + z))))) = nCr(((m ^ 3) ^ 0),(((m ^ 3) ^ 0) + -((((m ^ 3) ^ 0) + -((v + (k + z))))))) assuming ((m ^ 3) ^ 0) >= 0 and (((m ^ 3) ^ 0) + -((v + (k + z)))) >= 0 and (((m ^ 3) ^ 0) + -((v + (k + z)))) <= ((m ^ 3) ^ 0)
+THEOREM	nCr(c,(c + -((u ^ 2)))) = nCr(c,(c + -((c + -((u ^ 2)))))) assuming c >= 0 and (c + -((u ^ 2))) >= 0 and (c + -((u ^ 2))) <= c
+THEOREM	nCr(((m ^ 0) + (k + m)),(((m ^ 0) + (k + m)) + -((b + m)))) = nCr(((m ^ 0) + (k + m)),(((m ^ 0) + (k + m)) + -((((m ^ 0) + (k + m)) + -((b + m)))))) assuming ((m ^ 0) + (k + m)) >= 0 and (((m ^ 0) + (k + m)) + -((b + m))) >= 0 and (((m ^ 0) + (k + m)) + -((b + m))) <= ((m ^ 0) + (k + m))
+THEOREM	nCr(((c ^ 3) + (m ^ 1)),(((c ^ 3) + (m ^ 1)) + -(-(v)))) = nCr(((c ^ 3) + (m ^ 1)),(((c ^ 3) + (m ^ 1)) + -((((c ^ 3) + (m ^ 1)) + -(-(v)))))) assuming ((c ^ 3) + (m ^ 1)) >= 0 and (((c ^ 3) + (m ^ 1)) + -(-(v))) >= 0 and (((c ^ 3) + (m ^ 1)) + -(-(v))) <= ((c ^ 3) + (m ^ 1))
+THEOREM	nCr((m + v),-((b ^ 3))) = (nCr(((m + v) + -(1)),(-((b ^ 3)) + -(1))) + nCr(((m + v) + -(1)),-((b ^ 3)))) assuming (m + v) >= 1 and -((b ^ 3)) >= 1 and -((b ^ 3)) <= (m + v)
+THEOREM	nCr((m + v),-((b ^ 3))) = nCr((m + v),((m + v) + -(-((b ^ 3))))) assuming (m + v) >= 0 and -((b ^ 3)) >= 0 and -((b ^ 3)) <= (m + v)
+THEOREM	nCr(((m + v) + -(1)),(-((b ^ 3)) + -(1))) = nCr(((m + v) + -(1)),(((m + v) + -(1)) + -((-((b ^ 3)) + -(1))))) assuming ((m + v) + -(1)) >= 0 and (-((b ^ 3)) + -(1)) >= 0 and (-((b ^ 3)) + -(1)) <= ((m + v) + -(1))
+THEOREM	nCr(((m + v) + -(1)),-((b ^ 3))) = nCr(((m + v) + -(1)),(((m + v) + -(1)) + -(-((b ^ 3))))) assuming ((m + v) + -(1)) >= 0 and -((b ^ 3)) >= 0 and -((b ^ 3)) <= ((m + v) + -(1))
+THEOREM	nCr(y,-(c)) = (nCr((y + -(1)),(-(c) + -(1))) + nCr((y + -(1)),-(c))) assuming y >= 1 and -(c) >= 1 and -(c) <= y
+THEOREM	nCr(y,-(c)) = nCr(y,(y + -(-(c)))) assuming y >= 0 and -(c) >= 0 and -(c) <= y
+THEOREM	nCr((y + -(1)),(-(c) + -(1))) = nCr((y + -(1)),((y + -(1)) + -((-(c) + -(1))))) assuming (y + -(1)) >= 0 and (-(c) + -(1)) >= 0 and (-(c) + -(1)) <= (y + -(1))
+THEOREM	nCr((y + -(1)),-(c)) = nCr((y + -(1)),((y + -(1)) + -(-(c)))) assuming (y + -(1)) >= 0 and -(c) >= 0 and -(c) <= (y + -(1))
+THEOREM	nCr((-(k) + v),y) = (nCr(((-(k) + v) + -(1)),(y + -(1))) + nCr(((-(k) + v) + -(1)),y)) assuming (-(k) + v) >= 1 and y >= 1 and y <= (-(k) + v)
+THEOREM	nCr((-(k) + v),y) = nCr((-(k) + v),((-(k) + v) + -(y))) assuming (-(k) + v) >= 0 and y >= 0 and y <= (-(k) + v)
+THEOREM	nCr(((-(k) + v) + -(1)),(y + -(1))) = nCr(((-(k) + v) + -(1)),(((-(k) + v) + -(1)) + -((y + -(1))))) assuming ((-(k) + v) + -(1)) >= 0 and (y + -(1)) >= 0 and (y + -(1)) <= ((-(k) + v) + -(1))
+THEOREM	nCr(((-(k) + v) + -(1)),y) = nCr(((-(k) + v) + -(1)),(((-(k) + v) + -(1)) + -(y))) assuming ((-(k) + v) + -(1)) >= 0 and y >= 0 and y <= ((-(k) + v) + -(1))
+THEOREM	nCr(n,n) = (nCr((n + -(1)),(n + -(1))) + nCr((n + -(1)),n)) assuming n >= 1 and n >= 1 and n <= n
+THEOREM	nCr(n,n) = nCr(n,(n + -(n))) assuming n >= 0 and n >= 0 and n <= n
+THEOREM	nCr((n + -(1)),(n + -(1))) = nCr((n + -(1)),((n + -(1)) + -((n + -(1))))) assuming (n + -(1)) >= 0 and (n + -(1)) >= 0 and (n + -(1)) <= (n + -(1))
+THEOREM	nCr((n + -(1)),n) = nCr((n + -(1)),((n + -(1)) + -(n))) assuming (n + -(1)) >= 0 and n >= 0 and n <= (n + -(1))
+THEOREM	nCr(n,-(c)) = (nCr((n + -(1)),(-(c) + -(1))) + nCr((n + -(1)),-(c))) assuming n >= 1 and -(c) >= 1 and -(c) <= n
+THEOREM	nCr(n,-(c)) = nCr(n,(n + -(-(c)))) assuming n >= 0 and -(c) >= 0 and -(c) <= n
+THEOREM	nCr((n + -(1)),(-(c) + -(1))) = nCr((n + -(1)),((n + -(1)) + -((-(c) + -(1))))) assuming (n + -(1)) >= 0 and (-(c) + -(1)) >= 0 and (-(c) + -(1)) <= (n + -(1))
+THEOREM	nCr((n + -(1)),-(c)) = nCr((n + -(1)),((n + -(1)) + -(-(c)))) assuming (n + -(1)) >= 0 and -(c) >= 0 and -(c) <= (n + -(1))
+THEOREM	nCr(a,(b * u)) = (nCr((a + -(1)),((b * u) + -(1))) + nCr((a + -(1)),(b * u))) assuming a >= 1 and (b * u) >= 1 and (b * u) <= a
+THEOREM	nCr(a,(b * u)) = nCr(a,(a + -((b * u)))) assuming a >= 0 and (b * u) >= 0 and (b * u) <= a
+THEOREM	nCr((a + -(1)),((b * u) + -(1))) = nCr((a + -(1)),((a + -(1)) + -(((b * u) + -(1))))) assuming (a + -(1)) >= 0 and ((b * u) + -(1)) >= 0 and ((b * u) + -(1)) <= (a + -(1))
+THEOREM	nCr((a + -(1)),(b * u)) = nCr((a + -(1)),((a + -(1)) + -((b * u)))) assuming (a + -(1)) >= 0 and (b * u) >= 0 and (b * u) <= (a + -(1))
+THEOREM	nCr(-(k),-(y)) = (nCr((-(k) + -(1)),(-(y) + -(1))) + nCr((-(k) + -(1)),-(y))) assuming -(k) >= 1 and -(y) >= 1 and -(y) <= -(k)
+THEOREM	nCr(-(k),-(y)) = nCr(-(k),(-(k) + -(-(y)))) assuming -(k) >= 0 and -(y) >= 0 and -(y) <= -(k)
+THEOREM	nCr((-(k) + -(1)),(-(y) + -(1))) = nCr((-(k) + -(1)),((-(k) + -(1)) + -((-(y) + -(1))))) assuming (-(k) + -(1)) >= 0 and (-(y) + -(1)) >= 0 and (-(y) + -(1)) <= (-(k) + -(1))
+THEOREM	nCr((-(k) + -(1)),-(y)) = nCr((-(k) + -(1)),((-(k) + -(1)) + -(-(y)))) assuming (-(k) + -(1)) >= 0 and -(y) >= 0 and -(y) <= (-(k) + -(1))
+THEOREM	nCr(-((m * b)),(-(k) + (n ^ 3))) = (nCr((-((m * b)) + -(1)),((-(k) + (n ^ 3)) + -(1))) + nCr((-((m * b)) + -(1)),(-(k) + (n ^ 3)))) assuming -((m * b)) >= 1 and (-(k) + (n ^ 3)) >= 1 and (-(k) + (n ^ 3)) <= -((m * b))
+THEOREM	nCr(-((m * b)),(-(k) + (n ^ 3))) = nCr(-((m * b)),(-((m * b)) + -((-(k) + (n ^ 3))))) assuming -((m * b)) >= 0 and (-(k) + (n ^ 3)) >= 0 and (-(k) + (n ^ 3)) <= -((m * b))
+THEOREM	nCr((-((m * b)) + -(1)),((-(k) + (n ^ 3)) + -(1))) = nCr((-((m * b)) + -(1)),((-((m * b)) + -(1)) + -(((-(k) + (n ^ 3)) + -(1))))) assuming (-((m * b)) + -(1)) >= 0 and ((-(k) + (n ^ 3)) + -(1)) >= 0 and ((-(k) + (n ^ 3)) + -(1)) <= (-((m * b)) + -(1))
+THEOREM	nCr((-((m * b)) + -(1)),(-(k) + (n ^ 3))) = nCr((-((m * b)) + -(1)),((-((m * b)) + -(1)) + -((-(k) + (n ^ 3))))) assuming (-((m * b)) + -(1)) >= 0 and (-(k) + (n ^ 3)) >= 0 and (-(k) + (n ^ 3)) <= (-((m * b)) + -(1))
+THEOREM	nCr((((b ^ 0) + x) + -(1)),(n + -(1))) = nCr((((b ^ 0) + x) + -(1)),((((b ^ 0) + x) + -(1)) + -((n + -(1))))) assuming (((b ^ 0) + x) + -(1)) >= 0 and (n + -(1)) >= 0 and (n + -(1)) <= (((b ^ 0) + x) + -(1))
+THEOREM	nCr((((b ^ 0) + x) + -(1)),((((b ^ 0) + x) + -(1)) + -((n + -(1))))) = nCr((((b ^ 0) + x) + -(1)),((((b ^ 0) + x) + -(1)) + -(((((b ^ 0) + x) + -(1)) + -((n + -(1))))))) assuming (((b ^ 0) + x) + -(1)) >= 0 and ((((b ^ 0) + x) + -(1)) + -((n + -(1)))) >= 0 and ((((b ^ 0) + x) + -(1)) + -((n + -(1)))) <= (((b ^ 0) + x) + -(1))
+THEOREM	nCr((u + -(1)),((y + k) + -(1))) = nCr((u + -(1)),((u + -(1)) + -(((y + k) + -(1))))) assuming (u + -(1)) >= 0 and ((y + k) + -(1)) >= 0 and ((y + k) + -(1)) <= (u + -(1))
+THEOREM	nCr((u + -(1)),((u + -(1)) + -(((y + k) + -(1))))) = nCr((u + -(1)),((u + -(1)) + -(((u + -(1)) + -(((y + k) + -(1))))))) assuming (u + -(1)) >= 0 and ((u + -(1)) + -(((y + k) + -(1)))) >= 0 and ((u + -(1)) + -(((y + k) + -(1)))) <= (u + -(1))
+THEOREM	nCr(((u ^ 1) + -(1)),((z ^ 2) + -(1))) = nCr(((u ^ 1) + -(1)),(((u ^ 1) + -(1)) + -(((z ^ 2) + -(1))))) assuming ((u ^ 1) + -(1)) >= 0 and ((z ^ 2) + -(1)) >= 0 and ((z ^ 2) + -(1)) <= ((u ^ 1) + -(1))
+THEOREM	nCr(((u ^ 1) + -(1)),(((u ^ 1) + -(1)) + -(((z ^ 2) + -(1))))) = nCr(((u ^ 1) + -(1)),(((u ^ 1) + -(1)) + -((((u ^ 1) + -(1)) + -(((z ^ 2) + -(1))))))) assuming ((u ^ 1) + -(1)) >= 0 and (((u ^ 1) + -(1)) + -(((z ^ 2) + -(1)))) >= 0 and (((u ^ 1) + -(1)) + -(((z ^ 2) + -(1)))) <= ((u ^ 1) + -(1))
+THEOREM	nCr((c + -(1)),((k + b) + -(1))) = nCr((c + -(1)),((c + -(1)) + -(((k + b) + -(1))))) assuming (c + -(1)) >= 0 and ((k + b) + -(1)) >= 0 and ((k + b) + -(1)) <= (c + -(1))
+THEOREM	nCr((c + -(1)),((c + -(1)) + -(((k + b) + -(1))))) = nCr((c + -(1)),((c + -(1)) + -(((c + -(1)) + -(((k + b) + -(1))))))) assuming (c + -(1)) >= 0 and ((c + -(1)) + -(((k + b) + -(1)))) >= 0 and ((c + -(1)) + -(((k + b) + -(1)))) <= (c + -(1))
+THEOREM	nCr((m + -(1)),(x + -(1))) = nCr((m + -(1)),((m + -(1)) + -((x + -(1))))) assuming (m + -(1)) >= 0 and (x + -(1)) >= 0 and (x + -(1)) <= (m + -(1))
+THEOREM	nCr((m + -(1)),((m + -(1)) + -((x + -(1))))) = nCr((m + -(1)),((m + -(1)) + -(((m + -(1)) + -((x + -(1))))))) assuming (m + -(1)) >= 0 and ((m + -(1)) + -((x + -(1)))) >= 0 and ((m + -(1)) + -((x + -(1)))) <= (m + -(1))
+THEOREM	nCr((n + -(1)),(-(x) + -(1))) = nCr((n + -(1)),((n + -(1)) + -((-(x) + -(1))))) assuming (n + -(1)) >= 0 and (-(x) + -(1)) >= 0 and (-(x) + -(1)) <= (n + -(1))
+THEOREM	nCr((n + -(1)),((n + -(1)) + -((-(x) + -(1))))) = nCr((n + -(1)),((n + -(1)) + -(((n + -(1)) + -((-(x) + -(1))))))) assuming (n + -(1)) >= 0 and ((n + -(1)) + -((-(x) + -(1)))) >= 0 and ((n + -(1)) + -((-(x) + -(1)))) <= (n + -(1))
+THEOREM	nCr((-((a + b)) + -(1)),((b + (n + k)) + -(1))) = nCr((-((a + b)) + -(1)),((-((a + b)) + -(1)) + -(((b + (n + k)) + -(1))))) assuming (-((a + b)) + -(1)) >= 0 and ((b + (n + k)) + -(1)) >= 0 and ((b + (n + k)) + -(1)) <= (-((a + b)) + -(1))
+THEOREM	nCr((-((a + b)) + -(1)),((-((a + b)) + -(1)) + -(((b + (n + k)) + -(1))))) = nCr((-((a + b)) + -(1)),((-((a + b)) + -(1)) + -(((-((a + b)) + -(1)) + -(((b + (n + k)) + -(1))))))) assuming (-((a + b)) + -(1)) >= 0 and ((-((a + b)) + -(1)) + -(((b + (n + k)) + -(1)))) >= 0 and ((-((a + b)) + -(1)) + -(((b + (n + k)) + -(1)))) <= (-((a + b)) + -(1))
+THEOREM	nCr((k + -(1)),(k + -(1))) = nCr((k + -(1)),((k + -(1)) + -((k + -(1))))) assuming (k + -(1)) >= 0 and (k + -(1)) >= 0 and (k + -(1)) <= (k + -(1))
+THEOREM	nCr((k + -(1)),((k + -(1)) + -((k + -(1))))) = nCr((k + -(1)),((k + -(1)) + -(((k + -(1)) + -((k + -(1))))))) assuming (k + -(1)) >= 0 and ((k + -(1)) + -((k + -(1)))) >= 0 and ((k + -(1)) + -((k + -(1)))) <= (k + -(1))
+THEOREM	nCr((n + -(1)),(a * y)) = nCr((n + -(1)),((n + -(1)) + -((a * y)))) assuming (n + -(1)) >= 0 and (a * y) >= 0 and (a * y) <= (n + -(1))
+THEOREM	nCr((n + -(1)),((n + -(1)) + -((a * y)))) = nCr((n + -(1)),((n + -(1)) + -(((n + -(1)) + -((a * y)))))) assuming (n + -(1)) >= 0 and ((n + -(1)) + -((a * y))) >= 0 and ((n + -(1)) + -((a * y))) <= (n + -(1))
+THEOREM	nCr(((m * k) + -(1)),(m ^ 3)) = nCr(((m * k) + -(1)),(((m * k) + -(1)) + -((m ^ 3)))) assuming ((m * k) + -(1)) >= 0 and (m ^ 3) >= 0 and (m ^ 3) <= ((m * k) + -(1))
+THEOREM	nCr(((m * k) + -(1)),(((m * k) + -(1)) + -((m ^ 3)))) = nCr(((m * k) + -(1)),(((m * k) + -(1)) + -((((m * k) + -(1)) + -((m ^ 3)))))) assuming ((m * k) + -(1)) >= 0 and (((m * k) + -(1)) + -((m ^ 3))) >= 0 and (((m * k) + -(1)) + -((m ^ 3))) <= ((m * k) + -(1))
+THEOREM	nCr(((z ^ 0) + -(1)),-((a ^ 3))) = nCr(((z ^ 0) + -(1)),(((z ^ 0) + -(1)) + -(-((a ^ 3))))) assuming ((z ^ 0) + -(1)) >= 0 and -((a ^ 3)) >= 0 and -((a ^ 3)) <= ((z ^ 0) + -(1))
+THEOREM	nCr(((z ^ 0) + -(1)),(((z ^ 0) + -(1)) + -(-((a ^ 3))))) = nCr(((z ^ 0) + -(1)),(((z ^ 0) + -(1)) + -((((z ^ 0) + -(1)) + -(-((a ^ 3))))))) assuming ((z ^ 0) + -(1)) >= 0 and (((z ^ 0) + -(1)) + -(-((a ^ 3)))) >= 0 and (((z ^ 0) + -(1)) + -(-((a ^ 3)))) <= ((z ^ 0) + -(1))
+THEOREM	nCr((z + -(1)),z) = nCr((z + -(1)),((z + -(1)) + -(z))) assuming (z + -(1)) >= 0 and z >= 0 and z <= (z + -(1))
+THEOREM	nCr((z + -(1)),((z + -(1)) + -(z))) = nCr((z + -(1)),((z + -(1)) + -(((z + -(1)) + -(z))))) assuming (z + -(1)) >= 0 and ((z + -(1)) + -(z)) >= 0 and ((z + -(1)) + -(z)) <= (z + -(1))
+THEOREM	nCr((((m + a) ^ 3) + -(1)),z) = nCr((((m + a) ^ 3) + -(1)),((((m + a) ^ 3) + -(1)) + -(z))) assuming (((m + a) ^ 3) + -(1)) >= 0 and z >= 0 and z <= (((m + a) ^ 3) + -(1))
+THEOREM	nCr((((m + a) ^ 3) + -(1)),((((m + a) ^ 3) + -(1)) + -(z))) = nCr((((m + a) ^ 3) + -(1)),((((m + a) ^ 3) + -(1)) + -(((((m + a) ^ 3) + -(1)) + -(z))))) assuming (((m + a) ^ 3) + -(1)) >= 0 and ((((m + a) ^ 3) + -(1)) + -(z)) >= 0 and ((((m + a) ^ 3) + -(1)) + -(z)) <= (((m + a) ^ 3) + -(1))
+THEOREM	nCr((v + -(1)),((b * v) ^ 3)) = nCr((v + -(1)),((v + -(1)) + -(((b * v) ^ 3)))) assuming (v + -(1)) >= 0 and ((b * v) ^ 3) >= 0 and ((b * v) ^ 3) <= (v + -(1))
+THEOREM	nCr((v + -(1)),((v + -(1)) + -(((b * v) ^ 3)))) = nCr((v + -(1)),((v + -(1)) + -(((v + -(1)) + -(((b * v) ^ 3)))))) assuming (v + -(1)) >= 0 and ((v + -(1)) + -(((b * v) ^ 3))) >= 0 and ((v + -(1)) + -(((b * v) ^ 3))) <= (v + -(1))
+THEOREM	nCr(((b + c) + -(1)),k) = nCr(((b + c) + -(1)),(((b + c) + -(1)) + -(k))) assuming ((b + c) + -(1)) >= 0 and k >= 0 and k <= ((b + c) + -(1))
+THEOREM	nCr(((b + c) + -(1)),(((b + c) + -(1)) + -(k))) = nCr(((b + c) + -(1)),(((b + c) + -(1)) + -((((b + c) + -(1)) + -(k))))) assuming ((b + c) + -(1)) >= 0 and (((b + c) + -(1)) + -(k)) >= 0 and (((b + c) + -(1)) + -(k)) <= ((b + c) + -(1))
+THEOREM	nCr((k + -(1)),c) = nCr((k + -(1)),((k + -(1)) + -(c))) assuming (k + -(1)) >= 0 and c >= 0 and c <= (k + -(1))
+THEOREM	nCr((k + -(1)),((k + -(1)) + -(c))) = nCr((k + -(1)),((k + -(1)) + -(((k + -(1)) + -(c))))) assuming (k + -(1)) >= 0 and ((k + -(1)) + -(c)) >= 0 and ((k + -(1)) + -(c)) <= (k + -(1))
+THEOREM	fib(((x + x) + 2)) = (fib(((x + x) + 1)) + fib((x + x))) assuming (x + x) >= 0
+THEOREM	fib((-(m) + 2)) = (fib((-(m) + 1)) + fib(-(m))) assuming -(m) >= 0
+THEOREM	fib(((c * n) + 2)) = (fib(((c * n) + 1)) + fib((c * n))) assuming (c * n) >= 0
+THEOREM	fib((((m * x) * z) + 2)) = (fib((((m * x) * z) + 1)) + fib(((m * x) * z))) assuming ((m * x) * z) >= 0
+THEOREM	fib((-((x ^ 3)) + 2)) = (fib((-((x ^ 3)) + 1)) + fib(-((x ^ 3)))) assuming -((x ^ 3)) >= 0
+THEOREM	fib(((k ^ 2) + 2)) = (fib(((k ^ 2) + 1)) + fib((k ^ 2))) assuming (k ^ 2) >= 0
+THEOREM	fib((x + 2)) = (fib((x + 1)) + fib(x)) assuming x >= 0
+THEOREM	factorial((((k ^ 3) + (y ^ 2)) + 1)) = ((((k ^ 3) + (y ^ 2)) + 1) * factorial(((k ^ 3) + (y ^ 2)))) assuming ((k ^ 3) + (y ^ 2)) >= 0
+THEOREM	factorial((-(b) + 1)) = ((-(b) + 1) * factorial(-(b))) assuming -(b) >= 0
+THEOREM	factorial((c + 1)) = ((c + 1) * factorial(c)) assuming c >= 0
+THEOREM	factorial((((n + n) + k) + 1)) = ((((n + n) + k) + 1) * factorial(((n + n) + k))) assuming ((n + n) + k) >= 0
+THEOREM	factorial((k + 1)) = ((k + 1) * factorial(k)) assuming k >= 0
+THEOREM	factorial(((b ^ 0) + 1)) = (((b ^ 0) + 1) * factorial((b ^ 0))) assuming (b ^ 0) >= 0
+THEOREM	factorial(((z ^ 1) + 1)) = (((z ^ 1) + 1) * factorial((z ^ 1))) assuming (z ^ 1) >= 0
+THEOREM	derangements((k ^ 3)) = (((k ^ 3) + -(1)) * (derangements(((k ^ 3) + -(1))) + derangements(((k ^ 3) + -(2))))) assuming (k ^ 3) >= 2
+THEOREM	derangements(((k ^ 3) + -(1))) = ((((k ^ 3) + -(1)) + -(1)) * (derangements((((k ^ 3) + -(1)) + -(1))) + derangements((((k ^ 3) + -(1)) + -(2))))) assuming ((k ^ 3) + -(1)) >= 2
+THEOREM	derangements(((k ^ 3) + -(2))) = ((((k ^ 3) + -(2)) + -(1)) * (derangements((((k ^ 3) + -(2)) + -(1))) + derangements((((k ^ 3) + -(2)) + -(2))))) assuming ((k ^ 3) + -(2)) >= 2
+THEOREM	derangements((x + v)) = (((x + v) + -(1)) * (derangements(((x + v) + -(1))) + derangements(((x + v) + -(2))))) assuming (x + v) >= 2
+THEOREM	derangements(((x + v) + -(1))) = ((((x + v) + -(1)) + -(1)) * (derangements((((x + v) + -(1)) + -(1))) + derangements((((x + v) + -(1)) + -(2))))) assuming ((x + v) + -(1)) >= 2
+THEOREM	derangements(((x + v) + -(2))) = ((((x + v) + -(2)) + -(1)) * (derangements((((x + v) + -(2)) + -(1))) + derangements((((x + v) + -(2)) + -(2))))) assuming ((x + v) + -(2)) >= 2
+THEOREM	derangements((k + v)) = (((k + v) + -(1)) * (derangements(((k + v) + -(1))) + derangements(((k + v) + -(2))))) assuming (k + v) >= 2
+THEOREM	derangements(((k + v) + -(1))) = ((((k + v) + -(1)) + -(1)) * (derangements((((k + v) + -(1)) + -(1))) + derangements((((k + v) + -(1)) + -(2))))) assuming ((k + v) + -(1)) >= 2
+THEOREM	derangements(((k + v) + -(2))) = ((((k + v) + -(2)) + -(1)) * (derangements((((k + v) + -(2)) + -(1))) + derangements((((k + v) + -(2)) + -(2))))) assuming ((k + v) + -(2)) >= 2
+THEOREM	derangements(a) = ((a + -(1)) * (derangements((a + -(1))) + derangements((a + -(2))))) assuming a >= 2
+THEOREM	derangements((a + -(1))) = (((a + -(1)) + -(1)) * (derangements(((a + -(1)) + -(1))) + derangements(((a + -(1)) + -(2))))) assuming (a + -(1)) >= 2
+THEOREM	derangements((a + -(2))) = (((a + -(2)) + -(1)) * (derangements(((a + -(2)) + -(1))) + derangements(((a + -(2)) + -(2))))) assuming (a + -(2)) >= 2
+THEOREM	derangements(-(z)) = ((-(z) + -(1)) * (derangements((-(z) + -(1))) + derangements((-(z) + -(2))))) assuming -(z) >= 2
+THEOREM	derangements((-(z) + -(1))) = (((-(z) + -(1)) + -(1)) * (derangements(((-(z) + -(1)) + -(1))) + derangements(((-(z) + -(1)) + -(2))))) assuming (-(z) + -(1)) >= 2
+THEOREM	derangements((-(z) + -(2))) = (((-(z) + -(2)) + -(1)) * (derangements(((-(z) + -(2)) + -(1))) + derangements(((-(z) + -(2)) + -(2))))) assuming (-(z) + -(2)) >= 2
+THEOREM	derangements(-(c)) = ((-(c) + -(1)) * (derangements((-(c) + -(1))) + derangements((-(c) + -(2))))) assuming -(c) >= 2
+THEOREM	derangements((-(c) + -(1))) = (((-(c) + -(1)) + -(1)) * (derangements(((-(c) + -(1)) + -(1))) + derangements(((-(c) + -(1)) + -(2))))) assuming (-(c) + -(1)) >= 2
+THEOREM	derangements((-(c) + -(2))) = (((-(c) + -(2)) + -(1)) * (derangements(((-(c) + -(2)) + -(1))) + derangements(((-(c) + -(2)) + -(2))))) assuming (-(c) + -(2)) >= 2
+THEOREM	derangements((x + x)) = (((x + x) + -(1)) * (derangements(((x + x) + -(1))) + derangements(((x + x) + -(2))))) assuming (x + x) >= 2
+THEOREM	derangements(((x + x) + -(1))) = ((((x + x) + -(1)) + -(1)) * (derangements((((x + x) + -(1)) + -(1))) + derangements((((x + x) + -(1)) + -(2))))) assuming ((x + x) + -(1)) >= 2
+THEOREM	derangements(((x + x) + -(2))) = ((((x + x) + -(2)) + -(1)) * (derangements((((x + x) + -(2)) + -(1))) + derangements((((x + x) + -(2)) + -(2))))) assuming ((x + x) + -(2)) >= 2
+THEOREM	derangements((((y + a) ^ 0) + -(1))) = (((((y + a) ^ 0) + -(1)) + -(1)) * (derangements(((((y + a) ^ 0) + -(1)) + -(1))) + derangements(((((y + a) ^ 0) + -(1)) + -(2))))) assuming (((y + a) ^ 0) + -(1)) >= 2
+THEOREM	derangements(((((y + a) ^ 0) + -(1)) + -(1))) = ((((((y + a) ^ 0) + -(1)) + -(1)) + -(1)) * (derangements((((((y + a) ^ 0) + -(1)) + -(1)) + -(1))) + derangements((((((y + a) ^ 0) + -(1)) + -(1)) + -(2))))) assuming ((((y + a) ^ 0) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((y + a) ^ 0) + -(1)) + -(2))) = ((((((y + a) ^ 0) + -(1)) + -(2)) + -(1)) * (derangements((((((y + a) ^ 0) + -(1)) + -(2)) + -(1))) + derangements((((((y + a) ^ 0) + -(1)) + -(2)) + -(2))))) assuming ((((y + a) ^ 0) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((c ^ 3) + -(1))) = ((((c ^ 3) + -(1)) + -(1)) * (derangements((((c ^ 3) + -(1)) + -(1))) + derangements((((c ^ 3) + -(1)) + -(2))))) assuming ((c ^ 3) + -(1)) >= 2
+THEOREM	derangements((((c ^ 3) + -(1)) + -(1))) = (((((c ^ 3) + -(1)) + -(1)) + -(1)) * (derangements(((((c ^ 3) + -(1)) + -(1)) + -(1))) + derangements(((((c ^ 3) + -(1)) + -(1)) + -(2))))) assuming (((c ^ 3) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((c ^ 3) + -(1)) + -(2))) = (((((c ^ 3) + -(1)) + -(2)) + -(1)) * (derangements(((((c ^ 3) + -(1)) + -(2)) + -(1))) + derangements(((((c ^ 3) + -(1)) + -(2)) + -(2))))) assuming (((c ^ 3) + -(1)) + -(2)) >= 2
+THEOREM	derangements((u + -(1))) = (((u + -(1)) + -(1)) * (derangements(((u + -(1)) + -(1))) + derangements(((u + -(1)) + -(2))))) assuming (u + -(1)) >= 2
+THEOREM	derangements(((u + -(1)) + -(1))) = ((((u + -(1)) + -(1)) + -(1)) * (derangements((((u + -(1)) + -(1)) + -(1))) + derangements((((u + -(1)) + -(1)) + -(2))))) assuming ((u + -(1)) + -(1)) >= 2
+THEOREM	derangements(((u + -(1)) + -(2))) = ((((u + -(1)) + -(2)) + -(1)) * (derangements((((u + -(1)) + -(2)) + -(1))) + derangements((((u + -(1)) + -(2)) + -(2))))) assuming ((u + -(1)) + -(2)) >= 2
+THEOREM	derangements((-(b) + -(1))) = (((-(b) + -(1)) + -(1)) * (derangements(((-(b) + -(1)) + -(1))) + derangements(((-(b) + -(1)) + -(2))))) assuming (-(b) + -(1)) >= 2
+THEOREM	derangements(((-(b) + -(1)) + -(1))) = ((((-(b) + -(1)) + -(1)) + -(1)) * (derangements((((-(b) + -(1)) + -(1)) + -(1))) + derangements((((-(b) + -(1)) + -(1)) + -(2))))) assuming ((-(b) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((-(b) + -(1)) + -(2))) = ((((-(b) + -(1)) + -(2)) + -(1)) * (derangements((((-(b) + -(1)) + -(2)) + -(1))) + derangements((((-(b) + -(1)) + -(2)) + -(2))))) assuming ((-(b) + -(1)) + -(2)) >= 2
+THEOREM	derangements((v + -(1))) = (((v + -(1)) + -(1)) * (derangements(((v + -(1)) + -(1))) + derangements(((v + -(1)) + -(2))))) assuming (v + -(1)) >= 2
+THEOREM	derangements(((v + -(1)) + -(1))) = ((((v + -(1)) + -(1)) + -(1)) * (derangements((((v + -(1)) + -(1)) + -(1))) + derangements((((v + -(1)) + -(1)) + -(2))))) assuming ((v + -(1)) + -(1)) >= 2
+THEOREM	derangements(((v + -(1)) + -(2))) = ((((v + -(1)) + -(2)) + -(1)) * (derangements((((v + -(1)) + -(2)) + -(1))) + derangements((((v + -(1)) + -(2)) + -(2))))) assuming ((v + -(1)) + -(2)) >= 2
+THEOREM	derangements((c + -(1))) = (((c + -(1)) + -(1)) * (derangements(((c + -(1)) + -(1))) + derangements(((c + -(1)) + -(2))))) assuming (c + -(1)) >= 2
+THEOREM	derangements(((c + -(1)) + -(1))) = ((((c + -(1)) + -(1)) + -(1)) * (derangements((((c + -(1)) + -(1)) + -(1))) + derangements((((c + -(1)) + -(1)) + -(2))))) assuming ((c + -(1)) + -(1)) >= 2
+THEOREM	derangements(((c + -(1)) + -(2))) = ((((c + -(1)) + -(2)) + -(1)) * (derangements((((c + -(1)) + -(2)) + -(1))) + derangements((((c + -(1)) + -(2)) + -(2))))) assuming ((c + -(1)) + -(2)) >= 2
+THEOREM	derangements((b + -(2))) = (((b + -(2)) + -(1)) * (derangements(((b + -(2)) + -(1))) + derangements(((b + -(2)) + -(2))))) assuming (b + -(2)) >= 2
+THEOREM	derangements(((b + -(2)) + -(1))) = ((((b + -(2)) + -(1)) + -(1)) * (derangements((((b + -(2)) + -(1)) + -(1))) + derangements((((b + -(2)) + -(1)) + -(2))))) assuming ((b + -(2)) + -(1)) >= 2
+THEOREM	derangements(((b + -(2)) + -(2))) = ((((b + -(2)) + -(2)) + -(1)) * (derangements((((b + -(2)) + -(2)) + -(1))) + derangements((((b + -(2)) + -(2)) + -(2))))) assuming ((b + -(2)) + -(2)) >= 2
+THEOREM	derangements(((x + y) + -(2))) = ((((x + y) + -(2)) + -(1)) * (derangements((((x + y) + -(2)) + -(1))) + derangements((((x + y) + -(2)) + -(2))))) assuming ((x + y) + -(2)) >= 2
+THEOREM	derangements((((x + y) + -(2)) + -(1))) = (((((x + y) + -(2)) + -(1)) + -(1)) * (derangements(((((x + y) + -(2)) + -(1)) + -(1))) + derangements(((((x + y) + -(2)) + -(1)) + -(2))))) assuming (((x + y) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((x + y) + -(2)) + -(2))) = (((((x + y) + -(2)) + -(2)) + -(1)) * (derangements(((((x + y) + -(2)) + -(2)) + -(1))) + derangements(((((x + y) + -(2)) + -(2)) + -(2))))) assuming (((x + y) + -(2)) + -(2)) >= 2
+THEOREM	derangements(((v ^ 3) + -(2))) = ((((v ^ 3) + -(2)) + -(1)) * (derangements((((v ^ 3) + -(2)) + -(1))) + derangements((((v ^ 3) + -(2)) + -(2))))) assuming ((v ^ 3) + -(2)) >= 2
+THEOREM	derangements((((v ^ 3) + -(2)) + -(1))) = (((((v ^ 3) + -(2)) + -(1)) + -(1)) * (derangements(((((v ^ 3) + -(2)) + -(1)) + -(1))) + derangements(((((v ^ 3) + -(2)) + -(1)) + -(2))))) assuming (((v ^ 3) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((v ^ 3) + -(2)) + -(2))) = (((((v ^ 3) + -(2)) + -(2)) + -(1)) * (derangements(((((v ^ 3) + -(2)) + -(2)) + -(1))) + derangements(((((v ^ 3) + -(2)) + -(2)) + -(2))))) assuming (((v ^ 3) + -(2)) + -(2)) >= 2
+THEOREM	derangements(((k * (k ^ 1)) + -(2))) = ((((k * (k ^ 1)) + -(2)) + -(1)) * (derangements((((k * (k ^ 1)) + -(2)) + -(1))) + derangements((((k * (k ^ 1)) + -(2)) + -(2))))) assuming ((k * (k ^ 1)) + -(2)) >= 2
+THEOREM	derangements((((k * (k ^ 1)) + -(2)) + -(1))) = (((((k * (k ^ 1)) + -(2)) + -(1)) + -(1)) * (derangements(((((k * (k ^ 1)) + -(2)) + -(1)) + -(1))) + derangements(((((k * (k ^ 1)) + -(2)) + -(1)) + -(2))))) assuming (((k * (k ^ 1)) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((k * (k ^ 1)) + -(2)) + -(2))) = (((((k * (k ^ 1)) + -(2)) + -(2)) + -(1)) * (derangements(((((k * (k ^ 1)) + -(2)) + -(2)) + -(1))) + derangements(((((k * (k ^ 1)) + -(2)) + -(2)) + -(2))))) assuming (((k * (k ^ 1)) + -(2)) + -(2)) >= 2
+THEOREM	derangements(((m * x) + -(2))) = ((((m * x) + -(2)) + -(1)) * (derangements((((m * x) + -(2)) + -(1))) + derangements((((m * x) + -(2)) + -(2))))) assuming ((m * x) + -(2)) >= 2
+THEOREM	derangements((((m * x) + -(2)) + -(1))) = (((((m * x) + -(2)) + -(1)) + -(1)) * (derangements(((((m * x) + -(2)) + -(1)) + -(1))) + derangements(((((m * x) + -(2)) + -(1)) + -(2))))) assuming (((m * x) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((m * x) + -(2)) + -(2))) = (((((m * x) + -(2)) + -(2)) + -(1)) * (derangements(((((m * x) + -(2)) + -(2)) + -(1))) + derangements(((((m * x) + -(2)) + -(2)) + -(2))))) assuming (((m * x) + -(2)) + -(2)) >= 2
+THEOREM	derangements(((x * a) + -(2))) = ((((x * a) + -(2)) + -(1)) * (derangements((((x * a) + -(2)) + -(1))) + derangements((((x * a) + -(2)) + -(2))))) assuming ((x * a) + -(2)) >= 2
+THEOREM	derangements((((x * a) + -(2)) + -(1))) = (((((x * a) + -(2)) + -(1)) + -(1)) * (derangements(((((x * a) + -(2)) + -(1)) + -(1))) + derangements(((((x * a) + -(2)) + -(1)) + -(2))))) assuming (((x * a) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((x * a) + -(2)) + -(2))) = (((((x * a) + -(2)) + -(2)) + -(1)) * (derangements(((((x * a) + -(2)) + -(2)) + -(1))) + derangements(((((x * a) + -(2)) + -(2)) + -(2))))) assuming (((x * a) + -(2)) + -(2)) >= 2
+THEOREM	derangements(((u * a) + -(2))) = ((((u * a) + -(2)) + -(1)) * (derangements((((u * a) + -(2)) + -(1))) + derangements((((u * a) + -(2)) + -(2))))) assuming ((u * a) + -(2)) >= 2
+THEOREM	derangements((((u * a) + -(2)) + -(1))) = (((((u * a) + -(2)) + -(1)) + -(1)) * (derangements(((((u * a) + -(2)) + -(1)) + -(1))) + derangements(((((u * a) + -(2)) + -(1)) + -(2))))) assuming (((u * a) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((u * a) + -(2)) + -(2))) = (((((u * a) + -(2)) + -(2)) + -(1)) * (derangements(((((u * a) + -(2)) + -(2)) + -(1))) + derangements(((((u * a) + -(2)) + -(2)) + -(2))))) assuming (((u * a) + -(2)) + -(2)) >= 2
+THEOREM	derangements(((u + m) + -(2))) = ((((u + m) + -(2)) + -(1)) * (derangements((((u + m) + -(2)) + -(1))) + derangements((((u + m) + -(2)) + -(2))))) assuming ((u + m) + -(2)) >= 2
+THEOREM	derangements((((u + m) + -(2)) + -(1))) = (((((u + m) + -(2)) + -(1)) + -(1)) * (derangements(((((u + m) + -(2)) + -(1)) + -(1))) + derangements(((((u + m) + -(2)) + -(1)) + -(2))))) assuming (((u + m) + -(2)) + -(1)) >= 2
+THEOREM	derangements((((u + m) + -(2)) + -(2))) = (((((u + m) + -(2)) + -(2)) + -(1)) * (derangements(((((u + m) + -(2)) + -(2)) + -(1))) + derangements(((((u + m) + -(2)) + -(2)) + -(2))))) assuming (((u + m) + -(2)) + -(2)) >= 2
+THEOREM	derangements((((y * (n ^ 1)) + v) + -(1))) = (((((y * (n ^ 1)) + v) + -(1)) + -(1)) * (derangements(((((y * (n ^ 1)) + v) + -(1)) + -(1))) + derangements(((((y * (n ^ 1)) + v) + -(1)) + -(2))))) assuming (((y * (n ^ 1)) + v) + -(1)) >= 2
+THEOREM	derangements(((((y * (n ^ 1)) + v) + -(1)) + -(1))) = ((((((y * (n ^ 1)) + v) + -(1)) + -(1)) + -(1)) * (derangements((((((y * (n ^ 1)) + v) + -(1)) + -(1)) + -(1))) + derangements((((((y * (n ^ 1)) + v) + -(1)) + -(1)) + -(2))))) assuming ((((y * (n ^ 1)) + v) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((y * (n ^ 1)) + v) + -(1)) + -(2))) = ((((((y * (n ^ 1)) + v) + -(1)) + -(2)) + -(1)) * (derangements((((((y * (n ^ 1)) + v) + -(1)) + -(2)) + -(1))) + derangements((((((y * (n ^ 1)) + v) + -(1)) + -(2)) + -(2))))) assuming ((((y * (n ^ 1)) + v) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((n + x) + (k + y)) + -(1))) = (((((n + x) + (k + y)) + -(1)) + -(1)) * (derangements(((((n + x) + (k + y)) + -(1)) + -(1))) + derangements(((((n + x) + (k + y)) + -(1)) + -(2))))) assuming (((n + x) + (k + y)) + -(1)) >= 2
+THEOREM	derangements(((((n + x) + (k + y)) + -(1)) + -(1))) = ((((((n + x) + (k + y)) + -(1)) + -(1)) + -(1)) * (derangements((((((n + x) + (k + y)) + -(1)) + -(1)) + -(1))) + derangements((((((n + x) + (k + y)) + -(1)) + -(1)) + -(2))))) assuming ((((n + x) + (k + y)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((n + x) + (k + y)) + -(1)) + -(2))) = ((((((n + x) + (k + y)) + -(1)) + -(2)) + -(1)) * (derangements((((((n + x) + (k + y)) + -(1)) + -(2)) + -(1))) + derangements((((((n + x) + (k + y)) + -(1)) + -(2)) + -(2))))) assuming ((((n + x) + (k + y)) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1))) = (((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1)) * (derangements(((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1))) + derangements(((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(2))))) assuming (((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) >= 2
+THEOREM	derangements(((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1))) = ((((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1)) + -(1)) * (derangements((((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1)) + -(1))) + derangements((((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1)) + -(2))))) assuming ((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(2))) = ((((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(2)) + -(1)) * (derangements((((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(2)) + -(1))) + derangements((((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(2)) + -(2))))) assuming ((((u + z) + ((y ^ 0) * (c ^ 0))) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((k + b) + -(z)) + -(1))) = (((((k + b) + -(z)) + -(1)) + -(1)) * (derangements(((((k + b) + -(z)) + -(1)) + -(1))) + derangements(((((k + b) + -(z)) + -(1)) + -(2))))) assuming (((k + b) + -(z)) + -(1)) >= 2
+THEOREM	derangements(((((k + b) + -(z)) + -(1)) + -(1))) = ((((((k + b) + -(z)) + -(1)) + -(1)) + -(1)) * (derangements((((((k + b) + -(z)) + -(1)) + -(1)) + -(1))) + derangements((((((k + b) + -(z)) + -(1)) + -(1)) + -(2))))) assuming ((((k + b) + -(z)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((k + b) + -(z)) + -(1)) + -(2))) = ((((((k + b) + -(z)) + -(1)) + -(2)) + -(1)) * (derangements((((((k + b) + -(z)) + -(1)) + -(2)) + -(1))) + derangements((((((k + b) + -(z)) + -(1)) + -(2)) + -(2))))) assuming ((((k + b) + -(z)) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((b ^ 2) + b) + -(1))) = (((((b ^ 2) + b) + -(1)) + -(1)) * (derangements(((((b ^ 2) + b) + -(1)) + -(1))) + derangements(((((b ^ 2) + b) + -(1)) + -(2))))) assuming (((b ^ 2) + b) + -(1)) >= 2
+THEOREM	derangements(((((b ^ 2) + b) + -(1)) + -(1))) = ((((((b ^ 2) + b) + -(1)) + -(1)) + -(1)) * (derangements((((((b ^ 2) + b) + -(1)) + -(1)) + -(1))) + derangements((((((b ^ 2) + b) + -(1)) + -(1)) + -(2))))) assuming ((((b ^ 2) + b) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((b ^ 2) + b) + -(1)) + -(2))) = ((((((b ^ 2) + b) + -(1)) + -(2)) + -(1)) * (derangements((((((b ^ 2) + b) + -(1)) + -(2)) + -(1))) + derangements((((((b ^ 2) + b) + -(1)) + -(2)) + -(2))))) assuming ((((b ^ 2) + b) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((((y * k) + -(a)) + (z ^ 2)) + -(1))) = ((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1)) * (derangements((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1))) + derangements((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(2))))) assuming ((((y * k) + -(a)) + (z ^ 2)) + -(1)) >= 2
+THEOREM	derangements((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1))) = (((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1)) + -(1)) * (derangements(((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1)) + -(1))) + derangements(((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1)) + -(2))))) assuming (((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(2))) = (((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(2)) + -(1)) * (derangements(((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(2)) + -(1))) + derangements(((((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(2)) + -(2))))) assuming (((((y * k) + -(a)) + (z ^ 2)) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((((z + k) + x) + y) + -(1))) = ((((((z + k) + x) + y) + -(1)) + -(1)) * (derangements((((((z + k) + x) + y) + -(1)) + -(1))) + derangements((((((z + k) + x) + y) + -(1)) + -(2))))) assuming ((((z + k) + x) + y) + -(1)) >= 2
+THEOREM	derangements((((((z + k) + x) + y) + -(1)) + -(1))) = (((((((z + k) + x) + y) + -(1)) + -(1)) + -(1)) * (derangements(((((((z + k) + x) + y) + -(1)) + -(1)) + -(1))) + derangements(((((((z + k) + x) + y) + -(1)) + -(1)) + -(2))))) assuming (((((z + k) + x) + y) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((z + k) + x) + y) + -(1)) + -(2))) = (((((((z + k) + x) + y) + -(1)) + -(2)) + -(1)) * (derangements(((((((z + k) + x) + y) + -(1)) + -(2)) + -(1))) + derangements(((((((z + k) + x) + y) + -(1)) + -(2)) + -(2))))) assuming (((((z + k) + x) + y) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((((c * z) * (b + b)) + v) + -(1))) = ((((((c * z) * (b + b)) + v) + -(1)) + -(1)) * (derangements((((((c * z) * (b + b)) + v) + -(1)) + -(1))) + derangements((((((c * z) * (b + b)) + v) + -(1)) + -(2))))) assuming ((((c * z) * (b + b)) + v) + -(1)) >= 2
+THEOREM	derangements((((((c * z) * (b + b)) + v) + -(1)) + -(1))) = (((((((c * z) * (b + b)) + v) + -(1)) + -(1)) + -(1)) * (derangements(((((((c * z) * (b + b)) + v) + -(1)) + -(1)) + -(1))) + derangements(((((((c * z) * (b + b)) + v) + -(1)) + -(1)) + -(2))))) assuming (((((c * z) * (b + b)) + v) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((c * z) * (b + b)) + v) + -(1)) + -(2))) = (((((((c * z) * (b + b)) + v) + -(1)) + -(2)) + -(1)) * (derangements(((((((c * z) * (b + b)) + v) + -(1)) + -(2)) + -(1))) + derangements(((((((c * z) * (b + b)) + v) + -(1)) + -(2)) + -(2))))) assuming (((((c * z) * (b + b)) + v) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((x + n) + -(1)) + -(1))) = (((((x + n) + -(1)) + -(1)) + -(1)) * (derangements(((((x + n) + -(1)) + -(1)) + -(1))) + derangements(((((x + n) + -(1)) + -(1)) + -(2))))) assuming (((x + n) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((x + n) + -(1)) + -(1)) + -(1))) = ((((((x + n) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements((((((x + n) + -(1)) + -(1)) + -(1)) + -(1))) + derangements((((((x + n) + -(1)) + -(1)) + -(1)) + -(2))))) assuming ((((x + n) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((x + n) + -(1)) + -(1)) + -(2))) = ((((((x + n) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements((((((x + n) + -(1)) + -(1)) + -(2)) + -(1))) + derangements((((((x + n) + -(1)) + -(1)) + -(2)) + -(2))))) assuming ((((x + n) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((((u + u) + (m + (b + u))) + -(1)) + -(1))) = ((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1)) * (derangements((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1))) + derangements((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(2))))) assuming ((((u + u) + (m + (b + u))) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1))) = (((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements(((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1)) + -(1))) + derangements(((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1)) + -(2))))) assuming (((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(2))) = (((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements(((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(2)) + -(1))) + derangements(((((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(2)) + -(2))))) assuming (((((u + u) + (m + (b + u))) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((((m * z) + (v + c)) + c) + -(1)) + -(1))) = (((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1)) * (derangements(((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1))) + derangements(((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(2))))) assuming (((((m * z) + (v + c)) + c) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1))) = ((((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements((((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1)) + -(1))) + derangements((((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1)) + -(2))))) assuming ((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(2))) = ((((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements((((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(2)) + -(1))) + derangements((((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(2)) + -(2))))) assuming ((((((m * z) + (v + c)) + c) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((((y + m) + b) + -(1)) + -(1))) = ((((((y + m) + b) + -(1)) + -(1)) + -(1)) * (derangements((((((y + m) + b) + -(1)) + -(1)) + -(1))) + derangements((((((y + m) + b) + -(1)) + -(1)) + -(2))))) assuming ((((y + m) + b) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((y + m) + b) + -(1)) + -(1)) + -(1))) = (((((((y + m) + b) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements(((((((y + m) + b) + -(1)) + -(1)) + -(1)) + -(1))) + derangements(((((((y + m) + b) + -(1)) + -(1)) + -(1)) + -(2))))) assuming (((((y + m) + b) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((y + m) + b) + -(1)) + -(1)) + -(2))) = (((((((y + m) + b) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements(((((((y + m) + b) + -(1)) + -(1)) + -(2)) + -(1))) + derangements(((((((y + m) + b) + -(1)) + -(1)) + -(2)) + -(2))))) assuming (((((y + m) + b) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((a + y) + -(1)) + -(1))) = (((((a + y) + -(1)) + -(1)) + -(1)) * (derangements(((((a + y) + -(1)) + -(1)) + -(1))) + derangements(((((a + y) + -(1)) + -(1)) + -(2))))) assuming (((a + y) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((a + y) + -(1)) + -(1)) + -(1))) = ((((((a + y) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements((((((a + y) + -(1)) + -(1)) + -(1)) + -(1))) + derangements((((((a + y) + -(1)) + -(1)) + -(1)) + -(2))))) assuming ((((a + y) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((a + y) + -(1)) + -(1)) + -(2))) = ((((((a + y) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements((((((a + y) + -(1)) + -(1)) + -(2)) + -(1))) + derangements((((((a + y) + -(1)) + -(1)) + -(2)) + -(2))))) assuming ((((a + y) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements(((((c + -(u)) + -(k)) + -(1)) + -(1))) = ((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1)) * (derangements((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1))) + derangements((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(2))))) assuming ((((c + -(u)) + -(k)) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1))) = (((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements(((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1)) + -(1))) + derangements(((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1)) + -(2))))) assuming (((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(2))) = (((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements(((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(2)) + -(1))) + derangements(((((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(2)) + -(2))))) assuming (((((c + -(u)) + -(k)) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((u + (m + a)) + -(1)) + -(1))) = (((((u + (m + a)) + -(1)) + -(1)) + -(1)) * (derangements(((((u + (m + a)) + -(1)) + -(1)) + -(1))) + derangements(((((u + (m + a)) + -(1)) + -(1)) + -(2))))) assuming (((u + (m + a)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((u + (m + a)) + -(1)) + -(1)) + -(1))) = ((((((u + (m + a)) + -(1)) + -(1)) + -(1)) + -(1)) * (derangements((((((u + (m + a)) + -(1)) + -(1)) + -(1)) + -(1))) + derangements((((((u + (m + a)) + -(1)) + -(1)) + -(1)) + -(2))))) assuming ((((u + (m + a)) + -(1)) + -(1)) + -(1)) >= 2
+THEOREM	derangements(((((u + (m + a)) + -(1)) + -(1)) + -(2))) = ((((((u + (m + a)) + -(1)) + -(1)) + -(2)) + -(1)) * (derangements((((((u + (m + a)) + -(1)) + -(1)) + -(2)) + -(1))) + derangements((((((u + (m + a)) + -(1)) + -(1)) + -(2)) + -(2))))) assuming ((((u + (m + a)) + -(1)) + -(1)) + -(2)) >= 2
+THEOREM	derangements((((a + (-(v) + (y * y))) + -(1)) + -(2))) = (((((a + (-(v) + (y * y))) + -(1)) + -(2)) + -(1)) * (derangements(((((a + (-(v) + (y * y))) + -(1)) + -(2)) + -(1))) + derangements(((((a + (-(v) + (y * y))) + -(1)) + -(2)) + -(2))))) assuming (((a + (-(v) + (y * y))) + -(1)) + -(2)) >= 2
+LEARNED	nCr(n,k) = nCr(n,(n + -(k))) assuming n >= 0 and k >= 0 and k <= n
+LEARNED	nCr(n,(n + -(k))) = nCr(n,(n + -((n + -(k))))) assuming n >= 0 and (n + -(k)) >= 0 and (n + -(k)) <= n
+LEARNED	nCr(n,k) = (nCr((n + -(1)),(k + -(1))) + nCr((n + -(1)),k)) assuming n >= 1 and k >= 1 and k <= n
+LEARNED	nCr((n + -(1)),(k + -(1))) = nCr((n + -(1)),((n + -(1)) + -((k + -(1))))) assuming (n + -(1)) >= 0 and (k + -(1)) >= 0 and (k + -(1)) <= (n + -(1))
+LEARNED	nCr((n + -(1)),k) = nCr((n + -(1)),((n + -(1)) + -(k))) assuming (n + -(1)) >= 0 and k >= 0 and k <= (n + -(1))
+LEARNED	fib((n + 2)) = (fib((n + 1)) + fib(n)) assuming n >= 0
+LEARNED	factorial((n + 1)) = ((n + 1) * factorial(n)) assuming n >= 0
+LEARNED	derangements(n) = ((n + -(1)) * (derangements((n + -(1))) + derangements((n + -(2))))) assuming n >= 2
+LEARNED	derangements((n + -(1))) = (((n + -(1)) + -(1)) * (derangements(((n + -(1)) + -(1))) + derangements(((n + -(1)) + -(2))))) assuming (n + -(1)) >= 2
+LEARNED	derangements((n + -(2))) = (((n + -(2)) + -(1)) * (derangements(((n + -(2)) + -(1))) + derangements(((n + -(2)) + -(2))))) assuming (n + -(2)) >= 2
+LEARNED	derangements(((n + t) + -(1))) = ((((n + t) + -(1)) + -(1)) * (derangements((((n + t) + -(1)) + -(1))) + derangements((((n + t) + -(1)) + -(2))))) assuming ((n + t) + -(1)) >= 2
+LEARNED	derangements((((n + t) + -(1)) + -(1))) = (((((n + t) + -(1)) + -(1)) + -(1)) * (derangements(((((n + t) + -(1)) + -(1)) + -(1))) + derangements(((((n + t) + -(1)) + -(1)) + -(2))))) assuming (((n + t) + -(1)) + -(1)) >= 2
+LEARNED	derangements((((n + t) + -(1)) + -(2))) = (((((n + t) + -(1)) + -(2)) + -(1)) * (derangements(((((n + t) + -(1)) + -(2)) + -(1))) + derangements(((((n + t) + -(1)) + -(2)) + -(2))))) assuming (((n + t) + -(1)) + -(2)) >= 2
+LEARNED	((x + x) * (u + z)) = (((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z))
+LEARNED	(((b + c) * (z + z)) * (b + w)) = (((((((((1 * ((1 * b) * z)) * b) + ((1 * ((1 * b) * z)) * w)) + ((1 * ((1 * b) * z)) * b)) + ((1 * ((1 * b) * z)) * w)) + ((1 * ((1 * c) * z)) * b)) + ((1 * ((1 * c) * z)) * w)) + ((1 * ((1 * c) * z)) * b)) + ((1 * ((1 * c) * z)) * w))
+LEARNED	((a + v) * (w + v)) = (((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v))
+LEARNED	((z + c) * (a + w)) = (((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w))
+LEARNED	((u + u) * (z + b)) = (((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b))
+LEARNED	(((y + b) * (a + y)) * (w + u)) = (((((((((1 * ((1 * y) * a)) * w) + ((1 * ((1 * y) * a)) * u)) + ((1 * ((1 * y) * y)) * w)) + ((1 * ((1 * y) * y)) * u)) + ((1 * ((1 * b) * a)) * w)) + ((1 * ((1 * b) * a)) * u)) + ((1 * ((1 * b) * y)) * w)) + ((1 * ((1 * b) * y)) * u))
+LEARNED	((x + b) * (b + a)) = (((((1 * x) * b) + ((1 * x) * a)) + ((1 * b) * b)) + ((1 * b) * a))
+LEARNED	(((x + w) * (b + z)) * (a + w)) = (((((((((1 * ((1 * x) * b)) * a) + ((1 * ((1 * x) * b)) * w)) + ((1 * ((1 * x) * z)) * a)) + ((1 * ((1 * x) * z)) * w)) + ((1 * ((1 * w) * b)) * a)) + ((1 * ((1 * w) * b)) * w)) + ((1 * ((1 * w) * z)) * a)) + ((1 * ((1 * w) * z)) * w))
+LEARNED	nCr(x,a) = nCr(x,(x + -(a))) assuming x >= 0 and a >= 0 and a <= x
+LEARNED	nCr(x,(x + -(a))) = nCr(x,(x + -((x + -(a))))) assuming x >= 0 and (x + -(a)) >= 0 and (x + -(a)) <= x
+LEARNED	nCr((a ^ 3),x) = nCr((a ^ 3),((a ^ 3) + -(x))) assuming (a ^ 3) >= 0 and x >= 0 and x <= (a ^ 3)
+LEARNED	nCr((a ^ 3),((a ^ 3) + -(x))) = nCr((a ^ 3),((a ^ 3) + -(((a ^ 3) + -(x))))) assuming (a ^ 3) >= 0 and ((a ^ 3) + -(x)) >= 0 and ((a ^ 3) + -(x)) <= (a ^ 3)
+LEARNED	nCr((c + v),v) = nCr((c + v),((c + v) + -(v))) assuming (c + v) >= 0 and v >= 0 and v <= (c + v)
+LEARNED	nCr((c + v),((c + v) + -(v))) = nCr((c + v),((c + v) + -(((c + v) + -(v))))) assuming (c + v) >= 0 and ((c + v) + -(v)) >= 0 and ((c + v) + -(v)) <= (c + v)
+LEARNED	nCr(v,m) = nCr(v,(v + -(m))) assuming v >= 0 and m >= 0 and m <= v
+LEARNED	nCr(v,(v + -(m))) = nCr(v,(v + -((v + -(m))))) assuming v >= 0 and (v + -(m)) >= 0 and (v + -(m)) <= v
+LEARNED	nCr((c + x),(u ^ 1)) = nCr((c + x),((c + x) + -((u ^ 1)))) assuming (c + x) >= 0 and (u ^ 1) >= 0 and (u ^ 1) <= (c + x)
+LEARNED	nCr((c + x),((c + x) + -((u ^ 1)))) = nCr((c + x),((c + x) + -(((c + x) + -((u ^ 1)))))) assuming (c + x) >= 0 and ((c + x) + -((u ^ 1))) >= 0 and ((c + x) + -((u ^ 1))) <= (c + x)
+LEARNED	nCr(y,((k + z) + (k ^ 2))) = nCr(y,(y + -(((k + z) + (k ^ 2))))) assuming y >= 0 and ((k + z) + (k ^ 2)) >= 0 and ((k + z) + (k ^ 2)) <= y
+LEARNED	nCr(y,(y + -(((k + z) + (k ^ 2))))) = nCr(y,(y + -((y + -(((k + z) + (k ^ 2))))))) assuming y >= 0 and (y + -(((k + z) + (k ^ 2)))) >= 0 and (y + -(((k + z) + (k ^ 2)))) <= y
+LEARNED	nCr(-((z ^ 0)),-(b)) = nCr(-((z ^ 0)),(-((z ^ 0)) + -(-(b)))) assuming -((z ^ 0)) >= 0 and -(b) >= 0 and -(b) <= -((z ^ 0))
+LEARNED	nCr(-((z ^ 0)),(-((z ^ 0)) + -(-(b)))) = nCr(-((z ^ 0)),(-((z ^ 0)) + -((-((z ^ 0)) + -(-(b)))))) assuming -((z ^ 0)) >= 0 and (-((z ^ 0)) + -(-(b))) >= 0 and (-((z ^ 0)) + -(-(b))) <= -((z ^ 0))
+LEARNED	nCr(u,(m * v)) = nCr(u,(u + -((m * v)))) assuming u >= 0 and (m * v) >= 0 and (m * v) <= u
+LEARNED	nCr(u,(u + -((m * v)))) = nCr(u,(u + -((u + -((m * v)))))) assuming u >= 0 and (u + -((m * v))) >= 0 and (u + -((m * v))) <= u
+LEARNED	nCr(((y ^ 2) * (k * y)),u) = (nCr((((y ^ 2) * (k * y)) + -(1)),(u + -(1))) + nCr((((y ^ 2) * (k * y)) + -(1)),u)) assuming ((y ^ 2) * (k * y)) >= 1 and u >= 1 and u <= ((y ^ 2) * (k * y))
+LEARNED	nCr(((y ^ 2) * (k * y)),u) = nCr(((y ^ 2) * (k * y)),(((y ^ 2) * (k * y)) + -(u))) assuming ((y ^ 2) * (k * y)) >= 0 and u >= 0 and u <= ((y ^ 2) * (k * y))
+LEARNED	nCr((((y ^ 2) * (k * y)) + -(1)),(u + -(1))) = nCr((((y ^ 2) * (k * y)) + -(1)),((((y ^ 2) * (k * y)) + -(1)) + -((u + -(1))))) assuming (((y ^ 2) * (k * y)) + -(1)) >= 0 and (u + -(1)) >= 0 and (u + -(1)) <= (((y ^ 2) * (k * y)) + -(1))
+LEARNED	nCr((((y ^ 2) * (k * y)) + -(1)),u) = nCr((((y ^ 2) * (k * y)) + -(1)),((((y ^ 2) * (k * y)) + -(1)) + -(u))) assuming (((y ^ 2) * (k * y)) + -(1)) >= 0 and u >= 0 and u <= (((y ^ 2) * (k * y)) + -(1))
+LEARNED	nCr(u,x) = (nCr((u + -(1)),(x + -(1))) + nCr((u + -(1)),x)) assuming u >= 1 and x >= 1 and x <= u
+LEARNED	nCr(u,x) = nCr(u,(u + -(x))) assuming u >= 0 and x >= 0 and x <= u
+LEARNED	nCr((u + -(1)),(x + -(1))) = nCr((u + -(1)),((u + -(1)) + -((x + -(1))))) assuming (u + -(1)) >= 0 and (x + -(1)) >= 0 and (x + -(1)) <= (u + -(1))
+LEARNED	nCr((u + -(1)),x) = nCr((u + -(1)),((u + -(1)) + -(x))) assuming (u + -(1)) >= 0 and x >= 0 and x <= (u + -(1))
+LEARNED	nCr((y + v),-((b + y))) = (nCr(((y + v) + -(1)),(-((b + y)) + -(1))) + nCr(((y + v) + -(1)),-((b + y)))) assuming (y + v) >= 1 and -((b + y)) >= 1 and -((b + y)) <= (y + v)
+LEARNED	nCr((y + v),-((b + y))) = nCr((y + v),((y + v) + -(-((b + y))))) assuming (y + v) >= 0 and -((b + y)) >= 0 and -((b + y)) <= (y + v)
+LEARNED	nCr(((y + v) + -(1)),(-((b + y)) + -(1))) = nCr(((y + v) + -(1)),(((y + v) + -(1)) + -((-((b + y)) + -(1))))) assuming ((y + v) + -(1)) >= 0 and (-((b + y)) + -(1)) >= 0 and (-((b + y)) + -(1)) <= ((y + v) + -(1))
+LEARNED	nCr(((y + v) + -(1)),-((b + y))) = nCr(((y + v) + -(1)),(((y + v) + -(1)) + -(-((b + y))))) assuming ((y + v) + -(1)) >= 0 and -((b + y)) >= 0 and -((b + y)) <= ((y + v) + -(1))
+LEARNED	nCr((u + n),-(a)) = (nCr(((u + n) + -(1)),(-(a) + -(1))) + nCr(((u + n) + -(1)),-(a))) assuming (u + n) >= 1 and -(a) >= 1 and -(a) <= (u + n)
+LEARNED	nCr((u + n),-(a)) = nCr((u + n),((u + n) + -(-(a)))) assuming (u + n) >= 0 and -(a) >= 0 and -(a) <= (u + n)
+LEARNED	nCr(((u + n) + -(1)),(-(a) + -(1))) = nCr(((u + n) + -(1)),(((u + n) + -(1)) + -((-(a) + -(1))))) assuming ((u + n) + -(1)) >= 0 and (-(a) + -(1)) >= 0 and (-(a) + -(1)) <= ((u + n) + -(1))
+LEARNED	nCr(((u + n) + -(1)),-(a)) = nCr(((u + n) + -(1)),(((u + n) + -(1)) + -(-(a)))) assuming ((u + n) + -(1)) >= 0 and -(a) >= 0 and -(a) <= ((u + n) + -(1))
+LEARNED	nCr(((m ^ 3) ^ 0),(v + (k + z))) = (nCr((((m ^ 3) ^ 0) + -(1)),((v + (k + z)) + -(1))) + nCr((((m ^ 3) ^ 0) + -(1)),(v + (k + z)))) assuming ((m ^ 3) ^ 0) >= 1 and (v + (k + z)) >= 1 and (v + (k + z)) <= ((m ^ 3) ^ 0)
+LEARNED	nCr(((m ^ 3) ^ 0),(v + (k + z))) = nCr(((m ^ 3) ^ 0),(((m ^ 3) ^ 0) + -((v + (k + z))))) assuming ((m ^ 3) ^ 0) >= 0 and (v + (k + z)) >= 0 and (v + (k + z)) <= ((m ^ 3) ^ 0)
+LEARNED	nCr((((m ^ 3) ^ 0) + -(1)),((v + (k + z)) + -(1))) = nCr((((m ^ 3) ^ 0) + -(1)),((((m ^ 3) ^ 0) + -(1)) + -(((v + (k + z)) + -(1))))) assuming (((m ^ 3) ^ 0) + -(1)) >= 0 and ((v + (k + z)) + -(1)) >= 0 and ((v + (k + z)) + -(1)) <= (((m ^ 3) ^ 0) + -(1))
+LEARNED	nCr((((m ^ 3) ^ 0) + -(1)),(v + (k + z))) = nCr((((m ^ 3) ^ 0) + -(1)),((((m ^ 3) ^ 0) + -(1)) + -((v + (k + z))))) assuming (((m ^ 3) ^ 0) + -(1)) >= 0 and (v + (k + z)) >= 0 and (v + (k + z)) <= (((m ^ 3) ^ 0) + -(1))
+LEARNED	nCr(c,(u ^ 2)) = (nCr((c + -(1)),((u ^ 2) + -(1))) + nCr((c + -(1)),(u ^ 2))) assuming c >= 1 and (u ^ 2) >= 1 and (u ^ 2) <= c
+LEARNED	nCr(c,(u ^ 2)) = nCr(c,(c + -((u ^ 2)))) assuming c >= 0 and (u ^ 2) >= 0 and (u ^ 2) <= c
+LEARNED	nCr((c + -(1)),((u ^ 2) + -(1))) = nCr((c + -(1)),((c + -(1)) + -(((u ^ 2) + -(1))))) assuming (c + -(1)) >= 0 and ((u ^ 2) + -(1)) >= 0 and ((u ^ 2) + -(1)) <= (c + -(1))
+LEARNED	nCr((c + -(1)),(u ^ 2)) = nCr((c + -(1)),((c + -(1)) + -((u ^ 2)))) assuming (c + -(1)) >= 0 and (u ^ 2) >= 0 and (u ^ 2) <= (c + -(1))
+LEARNED	nCr(((m ^ 0) + (k + m)),(b + m)) = (nCr((((m ^ 0) + (k + m)) + -(1)),((b + m) + -(1))) + nCr((((m ^ 0) + (k + m)) + -(1)),(b + m))) assuming ((m ^ 0) + (k + m)) >= 1 and (b + m) >= 1 and (b + m) <= ((m ^ 0) + (k + m))
+LEARNED	nCr(((m ^ 0) + (k + m)),(b + m)) = nCr(((m ^ 0) + (k + m)),(((m ^ 0) + (k + m)) + -((b + m)))) assuming ((m ^ 0) + (k + m)) >= 0 and (b + m) >= 0 and (b + m) <= ((m ^ 0) + (k + m))
+LEARNED	nCr((((m ^ 0) + (k + m)) + -(1)),((b + m) + -(1))) = nCr((((m ^ 0) + (k + m)) + -(1)),((((m ^ 0) + (k + m)) + -(1)) + -(((b + m) + -(1))))) assuming (((m ^ 0) + (k + m)) + -(1)) >= 0 and ((b + m) + -(1)) >= 0 and ((b + m) + -(1)) <= (((m ^ 0) + (k + m)) + -(1))
+LEARNED	nCr((((m ^ 0) + (k + m)) + -(1)),(b + m)) = nCr((((m ^ 0) + (k + m)) + -(1)),((((m ^ 0) + (k + m)) + -(1)) + -((b + m)))) assuming (((m ^ 0) + (k + m)) + -(1)) >= 0 and (b + m) >= 0 and (b + m) <= (((m ^ 0) + (k + m)) + -(1))
+LEARNED	nCr(((c ^ 3) + (m ^ 1)),-(v)) = (nCr((((c ^ 3) + (m ^ 1)) + -(1)),(-(v) + -(1))) + nCr((((c ^ 3) + (m ^ 1)) + -(1)),-(v))) assuming ((c ^ 3) + (m ^ 1)) >= 1 and -(v) >= 1 and -(v) <= ((c ^ 3) + (m ^ 1))
+LEARNED	nCr(((c ^ 3) + (m ^ 1)),-(v)) = nCr(((c ^ 3) + (m ^ 1)),(((c ^ 3) + (m ^ 1)) + -(-(v)))) assuming ((c ^ 3) + (m ^ 1)) >= 0 and -(v) >= 0 and -(v) <= ((c ^ 3) + (m ^ 1))
+LEARNED	nCr((((c ^ 3) + (m ^ 1)) + -(1)),(-(v) + -(1))) = nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -((-(v) + -(1))))) assuming (((c ^ 3) + (m ^ 1)) + -(1)) >= 0 and (-(v) + -(1)) >= 0 and (-(v) + -(1)) <= (((c ^ 3) + (m ^ 1)) + -(1))
+LEARNED	nCr((((c ^ 3) + (m ^ 1)) + -(1)),-(v)) = nCr((((c ^ 3) + (m ^ 1)) + -(1)),((((c ^ 3) + (m ^ 1)) + -(1)) + -(-(v)))) assuming (((c ^ 3) + (m ^ 1)) + -(1)) >= 0 and -(v) >= 0 and -(v) <= (((c ^ 3) + (m ^ 1)) + -(1))
+LEARNED	(((x + x) * (u + z)) + ((a + v) * (w + v))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v)))
+LEARNED	(((x + x) * (u + z)) + -(((a + v) * (w + v)))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + -((((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v))))
+LEARNED	(((x + x) * (u + z)) * ((a + v) * (w + v))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) * (((((1 * a) * w) + ((1 * a) * v)) + ((1 * v) * w)) + ((1 * v) * v)))
+LEARNED	(((x + x) * (u + z)) + ((z + c) * (a + w))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w)))
+LEARNED	(((x + x) * (u + z)) + -(((z + c) * (a + w)))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + -((((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w))))
+LEARNED	(((x + x) * (u + z)) * ((z + c) * (a + w))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) * (((((1 * z) * a) + ((1 * z) * w)) + ((1 * c) * a)) + ((1 * c) * w)))
+LEARNED	(((x + x) * (u + z)) + ((u + u) * (z + b))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b)))
+LEARNED	(((x + x) * (u + z)) + -(((u + u) * (z + b)))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + -((((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b))))
+LEARNED	(((x + x) * (u + z)) * ((u + u) * (z + b))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) * (((((1 * u) * z) + ((1 * u) * b)) + ((1 * u) * z)) + ((1 * u) * b)))
+LEARNED	(((x + x) * (u + z)) + ((x + b) * (b + a))) = ((((((1 * x) * u) + ((1 * x) * z)) + ((1 * x) * u)) + ((1 * x) * z)) + (((((1 * x) * b) + ((1 * x) * a)) + ((1 * b) * b)) + ((1 * b) * a)))
+LEARNED	(a * 1) = a
+LEARNED	(a * b) = (b * a)
+LEARNED	((a + a) + a) = (a + (a + a))
+LEARNED	tau(360) = 24
+LEARNED	(b * (c + x)) = ((b * c) + (b * x))
+LEARNED	(v + 0) = v
+LEARNED	stirling2(6,3) = 90
+LEARNED	(a * c) = (c * a)
+LEARNED	((w + z) * u) = ((w * u) + (z * u))
+LEARNED	((y + v) * z) = ((y * z) + (v * z))
+LEARNED	((v + y) * w) = ((v * w) + (y * w))
+LEARNED	((z + x) * y) = ((z * y) + (x * y))
+LEARNED	(((z * t) + (x + 1)) * (y + t)) = (((z * t) * (y + t)) + ((x + 1) * (y + t)))
+LEARNED	(((v + -(1)) + (y ^ 2)) * ((w * t) + 1)) = (((v + -(1)) * ((w * t) + 1)) + ((y ^ 2) * ((w * t) + 1)))
+LEARNED	((((y * t) + 1) + (v ^ 2)) * ((z * t) + 1)) = ((((y * t) + 1) * ((z * t) + 1)) + ((v ^ 2) * ((z * t) + 1)))
+LEARNED	((w + (z + 1)) * (u + t)) = ((w * (u + t)) + ((z + 1) * (u + t)))
+LEARNED	((a + -(1)) * (c * t)) = ((c * t) * (a + -(1)))
+LEARNED	((a + -(1)) * (a * t)) = ((a * t) * (a + -(1)))
+LEARNED	((0 + -(1)) * (c * t)) = ((c * t) * (0 + -(1)))
+LEARNED	((1 + -(1)) * (c * t)) = ((c * t) * (1 + -(1)))
+LEARNED	((-(1) + -(1)) * (c * t)) = ((c * t) * (-(1) + -(1)))
+LEARNED	((a + -(1)) * (1 * t)) = ((1 * t) * (a + -(1)))
+LEARNED	((a + -(1)) * (-(1) * t)) = ((-(1) * t) * (a + -(1)))
+LEARNED	((__hilbert_swap_tmp + -(1)) * (a * t)) = ((a * t) * (__hilbert_swap_tmp + -(1)))
+LEARNED	(((a * t) + -(1)) * (1 * (t + -(1)))) = ((1 * (t + -(1))) * ((a * t) + -(1)))
+LEARNED	(((a + -(1)) + -(1)) * (-(1) * ((t * t) + 1))) = ((-(1) * ((t * t) + 1)) * ((a + -(1)) + -(1)))
+LEARNED	(((__hilbert_swap_tmp + 1) + -(1)) * ((a + t) * (t * t))) = (((a + t) * (t * t)) * ((__hilbert_swap_tmp + 1) + -(1)))
+EXPERIENCE_SIZE	390
