@@ -2,9 +2,7 @@
 
 ### Heuristic Intelligent Logic-Based Engine for Reasoning and Theoremization
 
-**H.I.L.B.E.R.T.** is a persistent autonomous mathematical research and discovery system written in C++. It combines symbolic reasoning, conjecture generation, adversarial testing, certificate-gated theorem verification, theory formation, knowledge persistence, and heuristic search into a single experimental mathematical reasoning engine.
-
-The project is designed around an important principle:
+H.I.L.B.E.R.T. is an experimental autonomous mathematical reasoning and discovery system written in C++. It combines symbolic reasoning, conjecture generation, counterexample search, certificate-gated theorem verification, theory formation, persistent knowledge storage, and heuristic research workflows into a unified mathematical research engine.
 
 > **Experimental evidence can suggest a mathematical result, but only a verified proof certificate can establish it as a theorem.**
 
@@ -15,59 +13,73 @@ The project is designed around an important principle:
 H.I.L.B.E.R.T. explores mathematical statements through a closed-loop research process:
 
 ```text
-Generate / Retrieve Knowledge
-            ↓
+Generate or Retrieve Knowledge
+            |
+            v
       Form Hypotheses
-            ↓
+            |
+            v
   Search for Counterexamples
-            ↓
+            |
+            v
      Attempt Formal Proof
-            ↓
+            |
+            v
    Verify Proof Certificate
-            ↓
+            |
+            v
 Store Knowledge and Relationships
-            ↓
+            |
+            v
  Generate New Research Directions
-            ↺
+            |
+            +----------------------+
+                                   |
+                                   v
+                            Repeat Research
 
-
-The system maintains a persistent knowledge base and uses previously verified mathematical knowledge to guide future exploration.
-
+```
 Key Features
 Mathematical Reasoning
 Symbolic expression parsing and manipulation
 Exact rational arithmetic
 Elementary polynomial identities
-Canonicalization of mathematical expressions
+Mathematical expression canonicalization
 Exact statement evaluation
 Algebraic identity verification
 Conditional reasoning with assumptions
 Theorem Proving
-Heuristic proof search
-Proof planning and lemma generation
-Certificate-based proof representation
-Independent kernel verification
-Conditional theorem handling
-Strict distinction between empirical evidence and formal proof
 
-A statement is considered a theorem only when its proof certificate is successfully accepted by the verification kernel.
+H.I.L.B.E.R.T. includes a certificate-based theorem verification workflow.
+
+Features include:
+
+Heuristic proof search
+Proof planning
+Lemma generation
+Proof certificate generation
+Independent certificate verification
+Conditional theorem handling
+Strict separation between empirical evidence and formal proof
+
+A statement is considered a verified theorem only when its proof certificate is accepted by the verification kernel.
 
 Conjecture Discovery
 
-H.I.L.B.E.R.T. can autonomously generate and investigate mathematical hypotheses through:
+The system can generate and investigate mathematical hypotheses through:
 
 Algebraic transformations
 Theorem composition
-Generalization and specialization
+Generalization
+Specialization
 Structural analogy
 Cross-domain proposal generation
 Heuristic exploration
-Research frontier prioritization
 Counterexample Search
 
-The engine actively attempts to falsify candidate statements before accepting them as mathematical knowledge.
+Before accepting a mathematical statement, H.I.L.B.E.R.T. actively attempts to falsify it.
 
-It supports:
+The system supports:
 
 Exact evaluation over generated inputs
 Counterexample discovery
@@ -75,16 +87,18 @@ Adversarial testing
 Fuzz testing
 Hypothesis repair after falsification
 
-A failure to find a counterexample is never treated as a proof.
+Failure to find a counterexample is never treated as proof.
 
 Number Theory and Combinatorics
 
-The system includes support for exact evaluation of several mathematical functions and structures, including:
+The system includes support for several exact mathematical functions and structures.
 
+Number Theory
 GCD and LCM
 Euler's Totient Function
 Divisor functions
 Fibonacci numbers
+Combinatorics
 Binomial coefficients
 Permutations
 Catalan numbers
@@ -92,37 +106,41 @@ Derangements
 Stirling numbers of the second kind
 Integer partitions
 Bell numbers
-Autonomous Research System
+Autonomous Mathematical Research
 
-The research engine can:
+H.I.L.B.E.R.T. can operate through autonomous research workflows.
+
+The system can:
 
 Generate research questions
 Maintain a prioritized research frontier
 Create research missions
-Search for proofs and counterexamples
+Generate mathematical hypotheses
+Search for counterexamples
+Attempt proof construction
 Repair falsified hypotheses
 Explore generalizations
-Compose existing verified theorems
+Compose existing verified results
 Generate insights from accumulated knowledge
 Form higher-level mathematical theories
 
-Research proposals are prioritized using heuristic measures such as novelty, structural complexity, unresolved status, and previous exploration history.
+Research proposals can be prioritized using heuristic measures such as novelty, structural complexity, unresolved status, and previous exploration history.
 
 Theory Formation
 
-Beyond individual statements, H.I.L.B.E.R.T. attempts to organize mathematical knowledge into higher-level theories.
+Beyond individual mathematical statements, H.I.L.B.E.R.T. attempts to organize related knowledge into higher-level theories.
 
-It can:
+The system can:
 
 Group related mathematical results
 Identify domain-specific concepts
-Extract verified principles
+Extract mathematical principles
 Build relationships between results
-Generate theory theses
+Generate theory-level theses
 Identify open research questions
 Estimate theory coherence and maturity
 
-Current exploration includes domains such as:
+Current exploration includes areas such as:
 
 Algebra
 Number Theory
@@ -130,9 +148,9 @@ Combinatorics
 Mixed Mathematical Structures
 Persistent Knowledge Base
 
-H.I.L.B.E.R.T. supports persistent storage of its mathematical knowledge and research state.
+H.I.L.B.E.R.T. maintains persistent research and mathematical knowledge.
 
-The system can maintain:
+The system can store:
 
 Discovered statements
 Verified theorems
@@ -140,7 +158,7 @@ Conditional results
 Proof certificates
 Research traces
 Research journals
-Learning databases
+Learning data
 Research policies
 Knowledge graphs
 Research frontiers
@@ -151,19 +169,91 @@ Knowledge Graph
 
 Mathematical knowledge can be represented as a graph of connected statements and relationships.
 
-The engine supports:
+The system supports:
 
 Knowledge graph inspection
 DOT graph export
-Live graph output
-Relationships between theorems
+Graph visualization
+Relationships between mathematical results
 Theory-level connections
 Research frontier visualization
+
+
+#Architecture
+
+```
++------------------------------+
+|        Input / Parser        |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Symbolic Representation      |
+| Expressions and Statements   |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Mathematical Reasoning       |
+| Evaluation and Simplification|
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Discovery and Hypothesis     |
+| Generation                   |
++--------------+---------------+
+               |
+               v
+       +-------+-------+
+       |               |
+       v               v
++-------------+  +-------------+
+|Counterexample| | Proof Search |
+|   Search     | |             |
++------+------+  +------+------+
+       |                |
+       +--------+-------+
+                |
+                v
++------------------------------+
+| Certificate Verification     |
+| Kernel                       |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Persistent Knowledge Base    |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Theory Formation and         |
+| Research Planning            |
++------------------------------+
+
+```
+
+Getting Started
+Requirements
+A C++ compiler with C++17 support
+Windows, Linux, or another compatible environment
+
+The project is designed to run without requiring external third-party libraries.
+
+Compilation
+
+Using g++:
+
+g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT
+
+On Windows:
+
+g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT.exe
+Usage
 Interactive Mode
 
-H.I.L.B.E.R.T. includes an interactive command-line environment.
-
-Start it with:
+Start the interactive command-line environment:
 
 HILBERT --interactive
 
@@ -188,23 +278,6 @@ quit
 Example:
 
 prove a*(b+c)=a*b+a*c
-Getting Started
-Requirements
-C++ compiler with C++14 or newer support
-Windows, Linux, or another compatible environment
-
-No third-party libraries are required.
-
-Compilation
-
-Using g++:
-
-g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT
-
-On Windows:
-
-g++ -O2 -std=c++17 HILBERT.cpp -o HILBERT.exe
-Usage
 Run the Test Suite
 HILBERT --test
 Run Mathematical Benchmarks
@@ -217,22 +290,20 @@ HILBERT --prove "a+b=b+a"
 Example:
 
 HILBERT --prove "a*(b+c)=a*b+a*c"
-
-To save a proof certificate:
-
+Save a Proof Certificate
 HILBERT --prove "a+b=b+a" --certificate-out proof.cert
 Search for a Counterexample
 HILBERT --counterexample "a*(b+c)=a*b+a+b*c"
 Run Autonomous Discovery
 HILBERT --discover
 
-You can configure the number of research rounds:
+Configure the number of research rounds:
 
 HILBERT --discover --research-rounds 5
 Run Active Research
 HILBERT --active-research
 
-This mode performs a focused autonomous research run using the system's hypothesis generation, testing, proof search, and theory-building mechanisms.
+This mode performs a focused autonomous research run using hypothesis generation, testing, proof search, and theory-building mechanisms.
 
 Run Autonomous Research Core
 HILBERT --v20
@@ -264,58 +335,13 @@ Example with a custom mission budget:
 HILBERT --missions --mission-budget 10 --mission-steps 5
 Fuzz Testing
 HILBERT --fuzz --tests 100
-Architecture
-
-The project is organized conceptually around the following components:
-
-┌──────────────────────────────┐
-│        Input / Parser        │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│ Symbolic Representation      │
-│ Expressions & Statements     │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│ Mathematical Reasoning       │
-│ Evaluation & Canonicalization│
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│ Discovery & Hypothesis       │
-│ Generation                   │
-└──────────────┬───────────────┘
-               ↓
-        ┌──────┴──────┐
-        ↓             ↓
-┌──────────────┐ ┌──────────────┐
-│ Counterexample│ │ Proof Search │
-│ Search        │ │              │
-└──────┬───────┘ └──────┬───────┘
-       ↓                ↓
-       └───────┬────────┘
-               ↓
-┌──────────────────────────────┐
-│ Certificate Verification     │
-│ Kernel                       │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│ Persistent Knowledge Base    │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│ Theory Formation & Research  │
-│ Planning                     │
-└──────────────────────────────┘
 Project Philosophy
 
-H.I.L.B.E.R.T. deliberately separates three different levels of mathematical confidence:
+H.I.L.B.E.R.T. deliberately separates different levels of mathematical confidence.
 
 1. Empirical Evidence
 
-A statement has survived a finite number of tests.
+A mathematical statement has survived a finite number of tests.
 
 This is not a proof.
 
@@ -327,17 +353,17 @@ This is still not a theorem.
 
 3. Verified Theorem
 
-A proof has been produced and independently accepted by the verification kernel.
+A proof certificate has been generated and independently accepted by the verification system.
 
-Only this level is treated as a formal theorem by the system.
+Only this level is treated as a formally verified mathematical result by H.I.L.B.E.R.T.
 
-This distinction is central to the architecture of H.I.L.B.E.R.T.
+This distinction is central to the architecture of the project.
 
 Current Scope
 
 H.I.L.B.E.R.T. is an experimental mathematical reasoning and autonomous discovery system.
 
-Its current rigorously implemented domains focus primarily on:
+Its current implementation focuses primarily on:
 
 Exact algebraic reasoning
 Rational arithmetic
@@ -348,12 +374,13 @@ Mathematical conjecture generation
 Counterexample search
 Certificate-based theorem verification
 Autonomous mathematical research workflows
+Persistent knowledge management
 
 The project is designed as an extensible research platform rather than a replacement for established formal proof assistants.
 
 Future Directions
 
-Potential future development includes:
+Potential areas for future development include:
 
 Support for additional mathematical domains
 More expressive formal proof languages
@@ -361,32 +388,57 @@ Integration with established theorem provers
 Improved symbolic simplification
 More advanced theorem synthesis
 Richer knowledge graph visualization
-Web-based interactive interface
+Web-based interactive interfaces
 Distributed research agents
 Formalized proof export
 Machine learning-assisted heuristic guidance
+
 Repository Structure
 HILBERT/
-│
-├── HILBERT.cpp                  # Core mathematical reasoning engine
-├── HILBERT_knowledge.json       # Mathematical knowledge data
-├── hilbert_brain.db             # Persistent research state
-├── hilbert_formula_db.txt       # Formula and knowledge data
-├── hilbert_exp.txt              # Experimental data
-├── hilbert_graph_test.dot       # Knowledge graph output
-├── hilbert_live_graph.html      # Interactive graph visualization
-├── *.cert                       # Proof certificates
-└── .gitignore
+|
++-- HILBERT.cpp
+|   Core mathematical reasoning and research engine
+|
++-- HILBERT_knowledge.json
+|   Mathematical knowledge data
+|
++-- hilbert_brain.db
+|   Persistent research state
+|
++-- hilbert_formula_db.txt
+|   Formula and knowledge data
+|
++-- hilbert_exp.txt
+|   Experimental data
+|
++-- hilbert_graph_test.dot
+|   Knowledge graph output
+|
++-- hilbert_live_graph.html
+|   Interactive graph visualization
+|
++-- *.cert
+|   Generated proof certificates
+|
++-- .gitignore
+|
++-- README.md
 
-Some generated files are created or updated during research and persistence operations.
+Some generated files may be created or updated during research and persistence operations.
+
+Important Note on Verification
+
+H.I.L.B.E.R.T. follows a strict trust boundary:
+
+A hypothesis, heuristic result, or experimentally tested statement is not automatically considered a theorem.
+
+Only statements supported by an accepted proof certificate are promoted to verified mathematical results by the system.
 
 Disclaimer
 
-H.I.L.B.E.R.T. is an experimental research project. Its autonomous discovery and heuristic components generate hypotheses and mathematical candidates, but heuristic success or finite testing must never be interpreted as formal proof.
+H.I.L.B.E.R.T. is an experimental research project. Its autonomous discovery and heuristic components can generate hypotheses and mathematical candidates, but heuristic success or finite testing must never be interpreted as formal proof.
 
-The engine follows a strict trust boundary:
-
-Only statements supported by an accepted proof certificate are promoted to verified mathematical results.
+The system is intended for experimentation, mathematical exploration, and research into autonomous reasoning architectures.
 
 Author
 
@@ -395,8 +447,3 @@ Ayush Tripathi
 B.Tech in Computer Science and Technology
 University of Allahabad
 
-H.I.L.B.E.R.T.
-Heuristic Intelligence & Logic-Based Evolutionary Reasoning Tool
-
-
-An experimental attempt at building a persistent autonomous mathematical research system.
