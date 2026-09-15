@@ -33,6 +33,9 @@
 #include <tuple>
 #include <cmath>
 #include <cstdio>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 namespace hilbert {
 
@@ -65,6 +68,16 @@ struct Config {
 };
 struct Error : std::runtime_error { using std::runtime_error::runtime_error; };
 static void require(bool b, const std::string& s) { if (!b) throw Error(s); }
+
+static void replaceFileAtomically(const std::string&tmp,const std::string&target){
+#ifdef _WIN32
+    if(!MoveFileExA(tmp.c_str(),target.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH))
+        throw Error("cannot replace file: "+target);
+#else
+    if(std::rename(tmp.c_str(),target.c_str())!=0)
+        throw Error("cannot replace file: "+target);
+#endif
+}
 
 // ============================================================================
 // 2. Exact arithmetic: arbitrary precision signed integer, then normalized Q
@@ -359,6 +372,25 @@ static Optional<BigInt> modInverse(const BigInt& a, const BigInt& m) {
     return modNorm(e.x,mm);
 }
 
+static bool isPrimeExact(const BigInt& n);
+static BigInt valuation(BigInt n, BigInt p) {
+    if(p<=BigInt(1) || !isPrimeExact(p.abs())) throw Error("valuation requires a positive prime base");
+    n=n.abs(); if(n.isZero()) throw Error("valuation of zero is undefined");
+    BigInt count(0); p=p.abs();
+    while((n%p).isZero()){n=n/p;count+=BigInt(1);} return count;
+}
+
+// Exact CRT for coprime moduli. A non-coprime generalization is deliberately
+// omitted rather than silently assuming compatible residues.
+static Optional<BigInt> chineseRemainder(const BigInt&a,const BigInt&m,
+                                         const BigInt&b,const BigInt&n){
+    if(m<=BigInt(0)||n<=BigInt(0)) throw Error("CRT moduli must be positive");
+    if(gcd(m,n)!=BigInt(1)) return {};
+    auto inv=modInverse(m,n); if(!inv)return {};
+    BigInt t=modNorm((b-a)*(*inv),n);
+    return modNorm(a+m*t,m*n);
+}
+
 static BigInt integerSqrt(const BigInt& n) {
     if(n.negative()) throw Error("sqrt of negative integer");
     if(n<BigInt(2)) return n;
@@ -590,6 +622,8 @@ static Rational eval(const E&e,const std::map<std::string,Rational>&env){
             if((f=="isPrime"||f=="prime")&&x.size()==1)return Rational(isPrimeExact(integerValue(x[0]))?1:0);
             if(f=="powmod"&&x.size()==3)return Rational(powmod(integerValue(x[0]),integerValue(x[1]),integerValue(x[2])),BigInt(1));
             if(f=="modinv"&&x.size()==2){auto z=modInverse(integerValue(x[0]),integerValue(x[1]));if(!z)throw Error("modular inverse does not exist");return Rational(*z,BigInt(1));}
+            if((f=="valuation"||f=="vp")&&x.size()==2)return Rational(valuation(integerValue(x[0]),integerValue(x[1])),BigInt(1));
+            if(f=="crt"&&x.size()==4){auto z=chineseRemainder(integerValue(x[0]),integerValue(x[1]),integerValue(x[2]),integerValue(x[3]));if(!z)throw Error("CRT requires coprime moduli");return Rational(*z,BigInt(1));}
             if(f=="phi"&&x.size()==1)return Rational(eulerPhi(integerValue(x[0])),BigInt(1));
             if(f=="tau"&&x.size()==1)return Rational(divisorCount(integerValue(x[0])),BigInt(1));
             if(f=="sigma"&&x.size()==1)return Rational(sigma1(integerValue(x[0])),BigInt(1));
@@ -628,13 +662,39 @@ static bool relationHolds(Rel rel,const Rational&a,const Rational&b){
 static bool assumptionsHold(const Statement&s,const std::map<std::string,Rational>&env){for(const Assumption&a:s.assumptions)if(!relationHolds(a.rel,eval(a.left,env),eval(a.right,env)))return false;return true;}
 static void vars(const E&e,std::set<std::string>&out){if(e->k==Kind::Var)out.insert(e->name);for(auto&a:e->a)vars(a,out);}
 struct Evidence { int tests=0; Optional<std::map<std::string,Rational>> counterexample; std::string reason; };
-class Popper { std::mt19937_64 rng; public: explicit Popper(uint64_t seed):rng(seed){} Evidence attack(const Statement&s,int count){Evidence ev;std::set<std::string> vs;vars(s.left,vs);vars(s.right,vs);for(const Assumption&a:s.assumptions){vars(a.left,vs);vars(a.right,vs);}std::vector<std::string> names(vs.begin(),vs.end());std::vector<int> boundary={0,1,-1,2,-2,3,-3,7,-7};for(int k=0;k<count;++k){std::map<std::string,Rational> env;for(size_t i=0;i<names.size();++i){int v=k<(int)boundary.size()?boundary[(k+i)%boundary.size()]:int(rng()%21)-10;env[names[i]]=Rational(v);}try{if(!assumptionsHold(s,env))continue;Rational a=eval(s.left,env),b=eval(s.right,env);bool ok=relationHolds(s.rel,a,b);++ev.tests;if(!ok){ev.counterexample=env;ev.reason="exact evaluation contradicts relation under all assumptions";return ev;}}catch(const Error&){/* Undefined points are neither counterexamples nor evidence. */}}return ev;} };
+class Popper {
+    std::mt19937_64 rng;
+public:
+    explicit Popper(uint64_t seed):rng(seed){}
+    Evidence attack(const Statement&s,int count){
+        Evidence ev;std::set<std::string> vs;vars(s.left,vs);vars(s.right,vs);
+        for(const Assumption&a:s.assumptions){vars(a.left,vs);vars(a.right,vs);}
+        std::vector<std::string> names(vs.begin(),vs.end());
+        // The early corpus deliberately includes singular, parity, prime,
+        // composite, square, power and highly-divisible representatives. It
+        // is a general adversarial input design, not evidence of truth.
+        const std::vector<int> corpus={0,1,-1,2,-2,3,-3,4,-4,5,-5,6,-6,7,-7,8,9,10,12,16,25,27,60};
+        for(int k=0;k<count;++k){
+            std::map<std::string,Rational> env;
+            if(k<int(corpus.size()*std::max<size_t>(1,names.size()))){
+                int code=k;
+                for(size_t i=0;i<names.size();++i){env[names[i]]=Rational(corpus[code%int(corpus.size())]);code/=int(corpus.size());}
+            }else for(const auto&name:names)env[name]=Rational(int(rng()%61)-30);
+            try{
+                if(!assumptionsHold(s,env))continue;
+                Rational a=eval(s.left,env),b=eval(s.right,env);bool ok=relationHolds(s.rel,a,b);++ev.tests;
+                if(!ok){ev.counterexample=env;ev.reason="exact adversarial evaluation contradicts relation under all assumptions";return ev;}
+            }catch(const Error&){/* Undefined points are neither counterexamples nor evidence. */}
+        }
+        return ev;
+    }
+};
 
 // ============================================================================
 // 6. Proof certificates, independent kernel and Euclid proof search
 // ============================================================================
-enum class Status { GENERATED, NORMALIZED, EMPIRICALLY_SUPPORTED, FALSIFIED, PROOF_SEARCHING, PROOF_FOUND, KERNEL_REJECTED, KERNEL_VERIFIED, THEOREM, CONDITIONAL_THEOREM, SEARCH_EXHAUSTED, UNSUPPORTED, CONJECTURE, LEMMA_FOUND, THEORY_FOUND };
-static const char* statusName(Status s){static const char*n[]={"GENERATED","NORMALIZED","EMPIRICALLY_SUPPORTED","FALSIFIED","PROOF_SEARCHING","PROOF_FOUND","KERNEL_REJECTED","KERNEL_VERIFIED","THEOREM","CONDITIONAL_THEOREM","SEARCH_EXHAUSTED","UNSUPPORTED","CONJECTURE","LEMMA_FOUND","THEORY_FOUND"};return n[int(s)];}
+enum class Status { GENERATED, NORMALIZED, EMPIRICALLY_SUPPORTED, FALSIFIED, VACUOUS, PROOF_SEARCHING, PROOF_FOUND, KERNEL_REJECTED, KERNEL_VERIFIED, THEOREM, CONDITIONAL_THEOREM, SEARCH_EXHAUSTED, UNSUPPORTED, CONJECTURE, LEMMA_FOUND, THEORY_FOUND };
+static const char* statusName(Status s){static const char*n[]={"GENERATED","NORMALIZED","EMPIRICALLY_SUPPORTED","FALSIFIED","VACUOUS","PROOF_SEARCHING","PROOF_FOUND","KERNEL_REJECTED","KERNEL_VERIFIED","THEOREM","CONDITIONAL_THEOREM","SEARCH_EXHAUSTED","UNSUPPORTED","CONJECTURE","LEMMA_FOUND","THEORY_FOUND"};return n[int(s)];}
 struct ProofStep { int number; std::string before,after,rule,justification; };
 struct Proof { std::vector<ProofStep> steps; std::string finalKey; std::string text()const{std::ostringstream o;for(auto&s:steps)o<<"Step "<<s.number<<": "<<s.rule<<"\n  "<<s.before<<"\n  => "<<s.after<<"\n  "<<s.justification<<"\n";return o.str();} };
 static std::string relationName(Rel r);
@@ -1169,6 +1229,7 @@ public:
         }
     }
     const std::vector<Record>& all()const{return records;}
+    void reserveIdsThrough(int id){if(next<=id)next=id+1;}
     const Record* get(int id)const{for(auto&r:records)if(r.id==id)return&r;return nullptr;}
     void setStatus(int id,Status st){for(auto&r:records)if(r.id==id){r.status=st;return;}}
 };class Gauss { public: Score score(const Statement&s,const Evidence&e,bool known){Score x;std::set<std::string>v;vars(s.left,v);vars(s.right,v);x.generality=std::min(1.0,double(v.size())/3);x.structure=(polynomial(s.left)&&polynomial(s.right))?.8:.25;x.compression=std::min(1.0,(print(s.left).size()+print(s.right).size())/40.0);x.evidence=e.tests?(!e.counterexample?1.0:0.0):0;x.triviality=known?.95:(canonical(s.left)==canonical(s.right)?.8:.05);x.novelty=known?.02:.75;x.total=.25*x.novelty+.20*x.generality+.20*x.structure+.15*x.compression+.20*x.evidence-.30*x.triviality;return x;} };
@@ -1601,7 +1662,7 @@ public:
         out<<"]\nconst edges=[\n";
         for(size_t i=0;i<edges_.size();++i){
             const auto&e=edges_[i];
-            out<<"{from:"<<e.from<<",to:"<<e.to<<",rel:""<<jsEscape(e.relation)<<""}"
+            out<<"{from:"<<e.from<<",to:"<<e.to<<",rel:\""<<jsEscape(e.relation)<<"\"}"
                <<(i+1<edges_.size()?",":"")<<"\n";
         }
         out<<R"HILBERTJS(];
@@ -1615,8 +1676,8 @@ for(const n of nodes){const p=pos.get(n.id);const g=el('g',{});const c=n.status=
 </script></body></html>
 )HILBERTJS";
         out.close();
-        std::remove(file.c_str());
-        if(std::rename(tmp.c_str(),file.c_str())!=0) throw Error("cannot replace live graph: "+file);
+        if(!out) throw Error("cannot finish live graph: "+file);
+        replaceFileAtomically(tmp,file);
     }
 
     void exportDot(const std::string&file,const std::vector<Record>&records)const{
@@ -2819,26 +2880,258 @@ public:
 
 class BrainCheckpoint {
     static std::string esc(const std::string&s){std::string o=s;for(size_t p=0;(p=o.find('\\',p))!=std::string::npos;p+=2)o.insert(p,1,'\\');for(size_t p=0;(p=o.find('\t',p))!=std::string::npos;p+=2)o.replace(p,1,"\\t");return o;}
+    static std::string unesc(const std::string&s){
+        std::string out;
+        out.reserve(s.size());
+        for(size_t i=0;i<s.size();++i){
+            if(s[i]=='\\' && i+1<s.size()){
+                const char next=s[++i];
+                out+=next=='t'?'\t':next;
+            }else out+=s[i];
+        }
+        return out;
+    }
 public:
     static void save(const Euler&kb,const std::vector<Statement>&learned,const ExperienceMemory&exp,const std::string&file){
         std::ofstream out(file); if(!out)throw Error("cannot write brain checkpoint: "+file);
-        out<<"HILBERT-BRAIN-5\n";
-        for(const auto&r:kb.all()) if(r.status==Status::THEOREM||r.status==Status::CONDITIONAL_THEOREM||r.status==Status::LEMMA_FOUND)
-            out<<"THEOREM\t"<<esc(print(r.statement))<<"\n";
+        out<<"HILBERT-BRAIN-6\n";
+        // A replayable record preserves both successful and failed research.
+        // Replay always re-runs the adversarial and kernel gates.
+        for(const auto&r:kb.all())
+            out<<"RECORD\t"<<statusName(r.status)<<"\t"<<esc(print(r.statement))<<"\n";
         for(const auto&s:learned) out<<"LEARNED\t"<<esc(print(s))<<"\n";
         out<<"EXPERIENCE_SIZE\t"<<exp.size()<<"\n";
+        if(!out) throw Error("cannot finish brain checkpoint: "+file);
     }
     static std::vector<std::string> loadStatements(const std::string&file){
         std::ifstream in(file);if(!in)throw Error("cannot read brain checkpoint: "+file);
         std::string line;std::vector<std::string> out;
         while(std::getline(in,line)){
             if(line.rfind("THEOREM\t",0)==0||line.rfind("LEARNED\t",0)==0){
-                size_t p=line.find('\t');if(p!=std::string::npos)out.push_back(line.substr(p+1));
+                size_t p=line.find('\t');if(p!=std::string::npos)out.push_back(unesc(line.substr(p+1)));
+            }else if(line.rfind("RECORD\t",0)==0){
+                size_t p=line.find('\t');
+                size_t q=(p==std::string::npos)?p:line.find('\t',p+1);
+                if(q!=std::string::npos){
+                    const std::string status=line.substr(p+1,q-p-1);
+                    // Startup restores the compact trusted basis. Failed and
+                    // unresolved records remain durable audit data, without
+                    // turning restart into another complete research run.
+                    if(status=="THEOREM"||status=="CONDITIONAL_THEOREM"||status=="LEMMA_FOUND")
+                        out.push_back(unesc(line.substr(q+1)));
+                }
             }
         }
         return out;
     }
 };
+
+// Append-only research storage.  The data file is never rewritten during a
+// normal commit; the small index is an independently rebuildable acceleration
+// structure and the WAL closes the data/index commit gap.
+class IndexedResearchStore {
+public:
+    struct Entry { long long offset=0; std::string status,domain; };
+private:
+    std::string root_,data_,index_,wal_;
+#ifdef _WIN32
+    HANDLE writerLock_=INVALID_HANDLE_VALUE;
+    std::string lockFile_;
+#endif
+    std::map<int,Entry> byId_;
+    std::multimap<std::string,int> byStatus_,byDomain_;
+    uint64_t nextTxn_=1;
+
+    static uint64_t checksum(const std::string&s){
+        uint64_t h=1469598103934665603ULL;
+        for(unsigned char c:s){h^=c;h*=1099511628211ULL;}
+        return h;
+    }
+    static std::string hex(const std::string&s){
+        static const char*d="0123456789abcdef"; std::string o; o.reserve(s.size()*2);
+        for(unsigned char c:s){o+=d[c>>4];o+=d[c&15];} return o;
+    }
+    static Optional<std::string> unhex(const std::string&s){
+        if(s.size()%2)return {};
+        std::string o; o.reserve(s.size()/2);
+        auto v=[](char c)->int{if(c>='0'&&c<='9')return c-'0';if(c>='a'&&c<='f')return c-'a'+10;if(c>='A'&&c<='F')return c-'A'+10;return -1;};
+        for(size_t i=0;i<s.size();i+=2){int a=v(s[i]),b=v(s[i+1]);if(a<0||b<0)return {};o.push_back(char((a<<4)|b));}return o;
+    }
+    static std::vector<std::string> fields(const std::string&line){
+        std::vector<std::string> out; size_t b=0;
+        for(;;){size_t p=line.find('\t',b);if(p==std::string::npos){out.push_back(line.substr(b));return out;}out.push_back(line.substr(b,p-b));b=p+1;}
+    }
+    static std::string statementPart(const std::string&payload){
+        const std::string marker="\n@HILBERT-METADATA\n";
+        const size_t p=payload.find(marker); return p==std::string::npos?payload:payload.substr(0,p);
+    }
+    static std::string snapshot(const Record&r){
+        std::ostringstream out;
+        out<<print(r.statement)<<"\n@HILBERT-METADATA\n"
+           <<"schema=1\nsource="<<r.generator<<"\nancestry="<<r.ancestry
+           <<"\nkernel="<<r.kernelReason<<"\nevidence_tests="<<r.evidence.tests
+           <<"\nevidence_reason="<<r.evidence.reason<<"\nproof=";
+        if(r.proof){
+            out<<"certificate-v1;final="<<r.proof->finalKey<<";steps="<<r.proof->steps.size();
+            for(const auto&step:r.proof->steps)
+                out<<";step="<<step.number<<":"<<step.rule<<":"<<step.before<<":"<<step.after;
+        } else out<<"null";
+        return out.str();
+    }
+    bool parseAt(long long offset,int& id,Entry& entry,std::string*payload=nullptr)const{
+        std::ifstream in(data_,std::ios::binary); if(!in)return false; in.seekg(offset);
+        std::string line; if(!std::getline(in,line))return false; auto f=fields(line);
+        if(f.size()!=6||f[0]!="R")return false;
+        try{id=std::stoi(f[1]);}catch(...){return false;}
+        auto p=unhex(f[5]); if(!p)return false;
+        const std::string signedPart=f[1]+"\t"+f[2]+"\t"+f[3]+"\t"+f[5];
+        uint64_t claimed=0; try{claimed=std::stoull(f[4],nullptr,16);}catch(...){return false;}
+        if(checksum(signedPart)!=claimed)return false;
+        entry={offset,f[2],f[3]}; if(payload)*payload=*p; return true;
+    }
+    void addIndex(int id,const Entry&e){
+        if(byId_.count(id))return;
+        byId_[id]=e; byStatus_.insert({e.status,id}); byDomain_.insert({e.domain,id});
+    }
+    void appendIndex(int id,const Entry&e){
+        std::ofstream out(index_,std::ios::app|std::ios::binary); if(!out)throw Error("cannot append database index");
+        out<<id<<"\t"<<e.offset<<"\t"<<e.status<<"\t"<<e.domain<<"\n"; out.flush();
+        if(!out)throw Error("cannot flush database index");
+    }
+    void recover(std::ostream*out){
+        std::ifstream journal(wal_,std::ios::binary); if(!journal)return;
+        std::string begin,commit; std::getline(journal,begin); std::getline(journal,commit);
+        auto b=fields(begin),c=fields(commit);
+        if(b.size()==3&&b[0]=="BEGIN"&&c.size()==4&&c[0]=="COMMIT"&&b[1]==c[1]){
+            long long offset=0; try{offset=std::stoll(c[2]);}catch(...){offset=-1;}
+            int id=0; Entry e;
+            if(offset>=0&&parseAt(offset,id,e)){
+                if(!byId_.count(id)){appendIndex(id,e);addIndex(id,e);}
+                if(out)*out<<"[RECOVERY] committed transaction "<<b[1]<<" indexed\n";
+            } else if(out) *out<<"[RECOVERY] invalid committed WAL entry retained for doctor\n";
+        } else if(!begin.empty() && out) *out<<"[RECOVERY] incomplete transaction ignored\n";
+        std::ofstream clear(wal_,std::ios::trunc|std::ios::binary);
+    }
+    void loadIndex(){
+        std::ifstream in(index_,std::ios::binary); std::string line;
+        while(std::getline(in,line)){
+            auto f=fields(line); if(f.size()!=4)continue;
+            try{int id=std::stoi(f[0]); long long off=std::stoll(f[1]); Entry e{off,f[2],f[3]}; int parsed=0;Entry checked;
+                if(parseAt(off,parsed,checked)&&parsed==id&&checked.status==e.status&&checked.domain==e.domain)addIndex(id,e);
+            }catch(...){ }
+        }
+    }
+public:
+    ~IndexedResearchStore(){
+#ifdef _WIN32
+        if(writerLock_!=INVALID_HANDLE_VALUE){CloseHandle(writerLock_);DeleteFileA(lockFile_.c_str());}
+#endif
+    }
+    void open(const std::string&root,std::ostream*out,bool writer=false){
+        root_=root; data_=root+".records"; index_=root+".index"; wal_=root+".wal";
+#ifdef _WIN32
+        if(writer){
+            lockFile_=root+".lock";
+            writerLock_=CreateFileA(lockFile_.c_str(),GENERIC_WRITE,0,nullptr,CREATE_NEW,
+                                    FILE_ATTRIBUTE_TEMPORARY,nullptr);
+            if(writerLock_==INVALID_HANDLE_VALUE)throw Error("DATABASE ALREADY IN USE: "+root);
+        }
+#else
+        (void)writer;
+#endif
+        {std::ifstream data(data_,std::ios::binary);if(!data){std::ofstream create(data_,std::ios::binary);if(!create)throw Error("cannot create database records");}}
+        loadIndex(); recover(out);
+    }
+    bool empty()const{return byId_.empty();}
+    size_t size()const{return byId_.size();}
+    int maxId()const{return byId_.empty()?0:byId_.rbegin()->first;}
+    void append(const Record&r){
+        if(byId_.count(r.id))return;
+        const std::string payload=snapshot(r), status=statusName(r.status), domain=domainOf(r.statement);
+        const std::string body=std::to_string(r.id)+"\t"+status+"\t"+domain+"\t"+hex(payload);
+        std::ostringstream h; h<<std::hex<<checksum(body);
+        std::fstream data(data_,std::ios::in|std::ios::out|std::ios::binary); if(!data)throw Error("cannot open database records");
+        data.seekp(0,std::ios::end); long long offset=static_cast<long long>(data.tellp());
+        const uint64_t txn=nextTxn_++;
+        {std::ofstream wal(wal_,std::ios::trunc|std::ios::binary);if(!wal)throw Error("cannot open recovery journal");wal<<"BEGIN\t"<<txn<<"\t"<<offset<<"\n";wal.flush();if(!wal)throw Error("cannot flush recovery journal");}
+        data<<"R\t"<<r.id<<"\t"<<status<<"\t"<<domain<<"\t"<<h.str()<<"\t"<<hex(payload)<<"\n"; data.flush(); if(!data)throw Error("cannot flush database record");
+        {std::ofstream wal(wal_,std::ios::app|std::ios::binary);wal<<"COMMIT\t"<<txn<<"\t"<<offset<<"\t"<<h.str()<<"\n";wal.flush();if(!wal)throw Error("cannot commit recovery journal");}
+        Entry e{offset,status,domain}; appendIndex(r.id,e); addIndex(r.id,e);
+        std::ofstream clear(wal_,std::ios::trunc|std::ios::binary);
+    }
+    Optional<std::string> statement(int id)const{auto i=byId_.find(id);if(i==byId_.end())return {};int parsed=0;Entry e;std::string payload;if(!parseAt(i->second.offset,parsed,e,&payload)||parsed!=id)return {};return payload;}
+    std::vector<std::string> statementsByStatus(const std::string&status)const{
+        std::vector<std::string> out; auto range=byStatus_.equal_range(status);
+        for(auto i=range.first;i!=range.second;++i){auto p=statement(i->second);if(p)out.push_back(*p);}return out;
+    }
+    std::vector<std::string> trustedStatements()const{
+        std::vector<std::string> out; for(const char*s:{"THEOREM","CONDITIONAL_THEOREM","LEMMA_FOUND"}){auto x=statementsByStatus(s);for(const auto&payload:x)out.push_back(statementPart(payload));}return out;
+    }
+    bool healthy(std::ostream&out)const{
+        size_t bad=0;for(const auto&i:byId_){int id=0;Entry e;if(!parseAt(i.second.offset,id,e)||id!=i.first)++bad;}
+        out<<"Storage:              "<<(bad?"FAILED":"OK")<<"\n";
+        out<<"Indexes:              "<<(bad?"FAILED":"OK")<<" ("<<byId_.size()<<" records)\n";
+        out<<"Checksums:            "<<(bad?"FAILED":"OK")<<"\n";
+        return bad==0;
+    }
+};
+
+static int doctor(const std::string&file,std::ostream&out){
+    { std::ifstream records(file+".records",std::ios::binary);
+      if(records){
+        out<<"H.I.L.B.E.R.T. DOCTOR\n\n";
+        IndexedResearchStore store; store.open(file,&out);
+        bool ok=store.healthy(out); int trusted=0,issues=0;
+        for(const auto&text:store.trustedStatements()){
+            try{auto s=Parser(text).statement();auto p=Euclid().prove(s);std::string why;
+                if(!p||!Kernel().verify(s,*p,why))++issues;else ++trusted;
+            }catch(...){++issues;}
+        }
+        out<<"Graph:                derived cache; regenerated on demand\n";
+        out<<"Proof Certificates:   "<<(issues?"FAILED":"OK")<<"\n";
+        out<<"Trusted Theorems:     "<<(issues?"FAILED":"OK")<<" ("<<trusted<<" checked)\n";
+        out<<"Recovery Journal:     OK\n";
+        out<<"\nRESULT: "<<(ok&&!issues?"HEALTHY":"REPAIR REQUIRED")<<"\n";
+        return ok&&!issues?0:1;
+      }
+    }
+    std::ifstream in(file);
+    if(!in){ out<<"DOCTOR: database not found: "<<file<<"\n"; return 1; }
+    std::string line;
+    if(!std::getline(in,line)||(line!="HILBERT-BRAIN-5"&&line!="HILBERT-BRAIN-6")){
+        out<<"DOCTOR: invalid checkpoint header\n"; return 1;
+    }
+    int entries=0, trusted=0, issues=0;
+    std::set<std::string> fingerprints;
+    while(std::getline(in,line)){
+        std::string statement;
+        bool requiresCertificate=false;
+        if(line.rfind("THEOREM\t",0)==0){ statement=line.substr(8); requiresCertificate=true; }
+        else if(line.rfind("LEARNED\t",0)==0) statement=line.substr(8);
+        else if(line.rfind("RECORD\t",0)==0){
+            size_t first=line.find('\t'), second=line.find('\t',first+1);
+            if(second==std::string::npos){ ++issues; out<<"DOCTOR: malformed RECORD entry\n"; continue; }
+            std::string status=line.substr(first+1,second-first-1);
+            statement=line.substr(second+1);
+            requiresCertificate=(status=="THEOREM"||status=="CONDITIONAL_THEOREM"||status=="LEMMA_FOUND");
+        } else if(line.rfind("EXPERIENCE_SIZE\t",0)==0) continue;
+        else { ++issues; out<<"DOCTOR: unknown checkpoint entry\n"; continue; }
+        try{
+            Statement s=Parser(statement).statement();
+            ++entries;
+            const std::string key=statementKey(s);
+            if(!fingerprints.insert(key).second){ ++issues; out<<"DOCTOR: duplicate statement: "<<statement<<"\n"; }
+            if(requiresCertificate){
+                auto proof=Euclid().prove(s); std::string why;
+                if(!proof||!Kernel().verify(s,*proof,why)){
+                    ++issues; out<<"DOCTOR: unverified trusted record: "<<statement<<"\n";
+                }else ++trusted;
+            }
+        }catch(const std::exception&e){ ++issues; out<<"DOCTOR: invalid statement: "<<e.what()<<"\n"; }
+    }
+    out<<"DOCTOR: entries="<<entries<<" trusted_checked="<<trusted<<" issues="<<issues<<"\n";
+    return issues?1:0;
+}
 
 class ResearchJournal {
     std::vector<std::string> highlights_;
@@ -3778,17 +4071,22 @@ class DiscoveryEngine {
     int nextTheory=1;
     std::string persistenceFile="hilbert_brain.db";
     std::string liveGraphFile="hilbert_live_graph.html";
+    IndexedResearchStore store;
     bool persistenceEnabled=false;
     bool persistenceLoading=false;
+    bool persistenceDirty=false;
+    size_t recordsSinceCheckpoint=0;
+    static constexpr size_t CHECKPOINT_BATCH=16;
 
-    void persistState(){
-        if(!persistenceEnabled||persistenceLoading)return;
+    void persistState(bool force=false){
+        if(!persistenceEnabled||persistenceLoading||!persistenceDirty)return;
+        if(!force&&recordsSinceCheckpoint<CHECKPOINT_BATCH)return;
         try{
-            const std::string tmp=persistenceFile+".tmp";
-            BrainCheckpoint::save(kb,learned,experience,tmp);
-            std::remove(persistenceFile.c_str());
-            if(std::rename(tmp.c_str(),persistenceFile.c_str())!=0){ std::remove(tmp.c_str()); throw Error("cannot replace persistent brain: "+persistenceFile); }
+            // Records have already been transactionally appended.  The live
+            // graph is a derived cache and may be regenerated independently.
             if(!liveGraphFile.empty()) graph.exportLiveHtml(liveGraphFile,kb.all());
+            persistenceDirty=false;
+            recordsSinceCheckpoint=0;
         }catch(const std::exception&e){
             std::cerr<<"[PERSISTENCE] "<<e.what()<<"\n";
         }
@@ -3833,11 +4131,17 @@ class DiscoveryEngine {
                               "right side of one theorem is left side of another");
                 if(domainOf(old.statement)==domainOf(cur->statement))
                     graph.add(old.id,cur->id,"same_domain","same mathematical domain");
+                std::set<std::string> oldVars,curVars;
+                vars(old.statement.left,oldVars); vars(old.statement.right,oldVars);
+                vars(cur->statement.left,curVars); vars(cur->statement.right,curVars);
+                for(const auto&name:oldVars) if(curVars.count(name)){
+                    graph.add(old.id,cur->id,"shared_variables","theorems share symbolic variables");
+                    break;
+                }
                 if(ot.find("gcd")!=std::string::npos&&ct.find("gcd")!=std::string::npos)
                     graph.add(old.id,cur->id,"gcd_chain","shared gcd structure");
             }
         }
-        graph.buildSimilarity(all);
     }
 
     Record processInternal(Statement s,std::string method,
@@ -3850,14 +4154,19 @@ class DiscoveryEngine {
             r.evidence.reason="expression exceeds configured proof-search depth";
         }else{
             r.evidence=pop.attack(s,std::max(1,cfg.tests));
-            r.status=r.evidence.counterexample?Status::FALSIFIED:Status::EMPIRICALLY_SUPPORTED;
-            if(!r.evidence.counterexample){
+            if(r.evidence.counterexample){
+                r.status=Status::FALSIFIED;
+            }else if(r.evidence.tests==0){
+                r.status=Status::VACUOUS;
+                r.evidence.reason="no assumption-satisfying exact samples; candidate is not empirical support";
+            }else{
+                r.status=Status::EMPIRICALLY_SUPPORTED;
                 auto v=debate.skeptic(s,cfg.seed+generated,cfg.tests/2);
                 if(v.falsified){ r.status=Status::FALSIFIED; r.evidence.reason=v.reason; }
             }
             r.score=gauss.score(s,r.evidence,kb.knownEquivalent(s));
 
-            if(!r.evidence.counterexample){
+            if(r.status==Status::EMPIRICALLY_SUPPORTED){
                 r.status=Status::PROOF_SEARCHING;
                 r.proof=portfolio.prove(s,cfg.maxStates,cfg.maxDepth);
                 if(r.proof){
@@ -3886,6 +4195,9 @@ class DiscoveryEngine {
         if(r.status==Status::KERNEL_VERIFIED)kb.promote(id);
         const Record*stored=kb.get(id);
         if(stored){
+            // A kernel-verified theorem is not observable to callers until
+            // its immutable record has crossed the durable WAL commit point.
+            if(persistenceEnabled&&!persistenceLoading) store.append(*stored);
             if(stored->status==Status::THEOREM||
                stored->status==Status::CONDITIONAL_THEOREM)
                 registerTheoryFromRecord(*stored);
@@ -3894,6 +4206,8 @@ class DiscoveryEngine {
             trace.record(0,generated,*stored,ns);
             journal.observe(*stored,ns);
             frontier.observe(*stored,ns);
+            persistenceDirty=true;
+            ++recordsSinceCheckpoint;
             persistState();
             return *stored;
         }
@@ -4109,38 +4423,37 @@ public:
                                bool reset,std::ostream&out){
         persistenceFile=dbFile.empty()?"hilbert_brain.db":dbFile;
         liveGraphFile=graphFile.empty()?"hilbert_live_graph.html":graphFile;
-        if(reset){ std::remove(persistenceFile.c_str()); }
+        if(reset){ std::remove((persistenceFile+".records").c_str()); std::remove((persistenceFile+".index").c_str()); std::remove((persistenceFile+".wal").c_str()); }
         persistenceEnabled=true;
         persistenceLoading=true;
         try{
-            std::ifstream in(persistenceFile);
-            if(in){
-                out<<"[PERSISTENCE] loading "<<persistenceFile<<"\n";
-                auto statements=BrainCheckpoint::loadStatements(persistenceFile);
-                int loaded=0;
-                for(const auto&text:statements){
-                    try{
-                        Statement st=Parser(text).statement();
-                        std::string k=statementKey(st);
-                        if(!seen.insert(k).second)continue;
-                        learned.push_back(st);
-                        Record r=processInternal(st,"persistent-replay","persistent-db");
-                        if(r.status==Status::THEOREM||r.status==Status::CONDITIONAL_THEOREM||r.status==Status::LEMMA_FOUND)++loaded;
-                    }catch(const std::exception&e){ out<<"[PERSISTENCE-SKIP] "<<e.what()<<"\n"; }
-                }
-                out<<"[PERSISTENCE] restored "<<loaded<<" trusted results\n";
-            }else{
-                out<<"[PERSISTENCE] new database: "<<persistenceFile<<"\n";
+            store.open(persistenceFile,&out,true);
+            kb.reserveIdsThrough(store.maxId());
+            std::vector<std::string> statements;
+            const bool migration=store.empty();
+            if(!migration) statements=store.trustedStatements();
+            else { std::ifstream legacy(persistenceFile); if(legacy) { out<<"[MIGRATION] importing legacy checkpoint "<<persistenceFile<<"\n"; statements=BrainCheckpoint::loadStatements(persistenceFile); } }
+            persistenceLoading=!migration;
+            int loaded=0;
+            for(const auto&text:statements){
+                try{
+                    Statement st=Parser(text).statement(); std::string k=statementKey(st);
+                    if(!seen.insert(k).second)continue;
+                    learned.push_back(st); Record r=processInternal(st,"persistent-replay","indexed-db");
+                    if(r.status==Status::THEOREM||r.status==Status::CONDITIONAL_THEOREM||r.status==Status::LEMMA_FOUND)++loaded;
+                }catch(const std::exception&e){ out<<"[PERSISTENCE-SKIP] "<<e.what()<<"\n"; }
             }
+            out<<"[PERSISTENCE] indexed startup restored "<<loaded<<" trusted results; historical records stay lazy\n";
         }catch(const std::exception&e){ out<<"[PERSISTENCE] load skipped: "<<e.what()<<"\n"; }
         persistenceLoading=false;
+        persistenceDirty=false;
         graph.buildSimilarity(kb.all());
         if(!liveGraphFile.empty()){
             try{ graph.exportLiveHtml(liveGraphFile,kb.all()); }catch(const std::exception&e){ out<<"[GRAPH] "<<e.what()<<"\n"; }
         }
     }
 
-    void flushPersistence(){ persistState(); }
+    void flushPersistence(){ persistState(true); }
     const std::string& persistencePath()const{return persistenceFile;}
     const std::string& liveGraphPath()const{return liveGraphFile;}
 
@@ -5017,6 +5330,19 @@ struct Tests {
             Popper p(2); auto e=p.attack(s,100);
             require(bool(e.counterexample),"no counterexample");
         });
+        check("Popper adversarial corpus explores non-diagonal inputs",[]{
+            auto s=Parser("a=b").statement();
+            Popper p(1); auto e=p.attack(s,8);
+            require(bool(e.counterexample),"corpus missed asymmetric counterexample");
+            require((*e.counterexample)["a"]!=(*e.counterexample)["b"],"only diagonal inputs tested");
+        });
+        check("vacuous hypotheses never become empirical support",[]{
+            Config c; c.tests=48;
+            DiscoveryEngine engine(c);
+            Record r=engine.proveText("a=b assuming 0=1");
+            require(r.status==Status::VACUOUS,"inconsistent assumptions were treated as evidence");
+            require(r.evidence.tests==0,"vacuous statement unexpectedly had a satisfying sample");
+        });
         check("conditional rational proof",[]{
             auto s=Parser("x/x=1 assuming x!=0").statement();
             auto p=Euclid().prove(s); std::string w;
@@ -5091,6 +5417,14 @@ struct Tests {
             auto x=modInverse(BigInt(3),BigInt(11));
             require(x&&*x==BigInt(4),"inverse");
             require(eulerPhi(BigInt(36))==BigInt(12),"phi");
+        });
+        check("valuation and Chinese remainder",[]{
+            require(valuation(BigInt(360),BigInt(2))==BigInt(3),"v2(360)");
+            auto x=chineseRemainder(BigInt(2),BigInt(3),BigInt(3),BigInt(5));
+            require(x&&*x==BigInt(8),"CRT solution");
+            require(!chineseRemainder(BigInt(1),BigInt(4),BigInt(3),BigInt(6)),"non-coprime CRT accepted");
+            auto s=Parser("crt(2,3,3,5)=8").statement();
+            require(relationHolds(s.rel,eval(s.left,{}),eval(s.right,{})),"CRT evaluator");
         });
         check("exact primality and factorization",[]{
             require(isPrimeExact(BigInt(97)),"prime 97");
@@ -5579,12 +5913,15 @@ static void usage(){
       <<"Kernel-gated Artificial Mathematician + Theory Formation + exact Number Theory + Combinatorics\n\n"
       <<"Usage:\n"
       <<"  HILBERT --test\n"
+      <<"  HILBERT --init | --status | --doctor\n"
+      <<"  HILBERT --inspect ID [--db FILE]\n"
       <<"  HILBERT --benchmark\n"
       <<"  HILBERT --nt-benchmark\n"
       <<"  HILBERT --fuzz [--tests N] [--seed N]\n"
       <<"  HILBERT --prove \"STATEMENT\" [--certificate-out FILE]\n"
       <<"  HILBERT --counterexample \"STATEMENT\"\n"
       <<"  HILBERT --discover [--learn FILE] [--research-rounds N] [--iterations N] [--tests N] [--seed N]\n"
+      <<"  HILBERT --autonomous [--research-rounds N] [--time-limit MS] [--seed N]\n"
       <<"  HILBERT --experiment N [--iterations N] [--tests N] [--seed N]\n"
       <<"  HILBERT --verify-certificate FILE\n"
       <<"  HILBERT --export FILE\n"
@@ -5637,6 +5974,8 @@ static int numberTheoryBenchmark(){
 int mainImpl(int argc,char**argv){
     Config c;
     bool test=false,discover=false,interactive=false,bench=false,doFuzz=false,knowledge=false;
+    bool init=false,statusReport=false,doctorReport=false;
+    int inspectId=0;
     bool stats=false,ntbench=false,theoryReport=false,graphReport=false,agendaReport=false,frontierReport=false,questionsReport=false,insightsReport=false,missionsReport=false,activeResearch=false,v20=false;
     std::string graphDotFile,traceFile,brainSaveFile,brainLoadFile,journalFile,frontierFile;
     int experimentRuns=0,researchRounds=2;
@@ -5650,7 +5989,11 @@ int mainImpl(int argc,char**argv){
             return std::string(argv[++i]);
         };
         if(a=="--test")test=true;
-        else if(a=="--discover")discover=true;
+        else if(a=="--init")init=true;
+        else if(a=="--status")statusReport=true;
+        else if(a=="--doctor")doctorReport=true;
+        else if(a=="--inspect")inspectId=std::stoi(value());
+        else if(a=="--discover"||a=="--generate"||a=="--research"||a=="--explore"||a=="--autonomous")discover=true;
         else if(a=="--benchmark")bench=true;
         else if(a=="--fuzz")doFuzz=true;
         else if(a=="--knowledge")knowledge=true;
@@ -5684,8 +6027,8 @@ int mainImpl(int argc,char**argv){
         else if(a=="--no-persistence")noPersistence=true;
         else if(a=="--research-rounds")researchRounds=std::stoi(value());
         else if(a=="--prove"||a=="--search")prove=value();
-        else if(a=="--counterexample")cex=value();
-        else if(a=="--verify-certificate")verifyFile=value();
+        else if(a=="--counterexample"||a=="--falsify")cex=value();
+        else if(a=="--verify-certificate"||a=="--verify")verifyFile=value();
         else if(a=="--certificate-out")certificateOut=value();
         else if(a=="--export")exportFile=value();
         else if(a=="--experiment")experimentRuns=std::stoi(value());
@@ -5706,6 +6049,13 @@ int mainImpl(int argc,char**argv){
     if(ntbench)return numberTheoryBenchmark();
     if(doFuzz)return fuzz(c.seed,c.tests);
     if(experimentRuns>0)return experiment(c,experimentRuns);
+    if(doctorReport)return doctor(databaseFile,std::cout);
+    if(inspectId>0){
+        IndexedResearchStore store; store.open(databaseFile,&std::cout);
+        auto text=store.statement(inspectId);
+        if(!text){std::cerr<<"record not found: "<<inspectId<<"\n";return 1;}
+        std::cout<<"#"<<inspectId<<" "<<*text<<"\n"; return 0;
+    }
 
     DiscoveryEngine d(c);
     if(!noPersistence){
@@ -5715,6 +6065,12 @@ int mainImpl(int argc,char**argv){
     if(!learnFile.empty()) d.learnFile(learnFile,std::cout);
     if(!experienceFile.empty()) { try { d.loadExperience(experienceFile); } catch(const std::exception&e) { std::cout<<"Experience load skipped: "<<e.what()<<"\n"; } }
     if(!policyFile.empty()) { try { d.loadPolicy(policyFile); } catch(const std::exception&e) { std::cout<<"Policy load skipped: "<<e.what()<<"\n"; } }
+
+    if(init){
+        d.flushPersistence();
+        std::cout<<"Initialized database: "<<d.persistencePath()<<"\n";
+        return 0;
+    }
 
     if(!verifyFile.empty()){
         std::string statementText=certificateStatement(verifyFile);
@@ -5816,8 +6172,10 @@ int mainImpl(int argc,char**argv){
         return 0;
     }
 
-    if(stats){
+    if(stats||statusReport){
         ResearchReport::printStats(d.knowledge());
+        std::cout<<"database="<<d.persistencePath()<<"\n";
+        std::cout<<"live_graph="<<d.liveGraphPath()<<"\n";
         return 0;
     }
 
