@@ -35,6 +35,12 @@
 #include <cstdio>
 #ifdef _WIN32
 #include <windows.h>
+#else
+#include <cerrno>
+#include <fcntl.h>
+#include <sys/file.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #endif
 
 namespace hilbert {
@@ -76,6 +82,20 @@ static void replaceFileAtomically(const std::string&tmp,const std::string&target
 #else
     if(std::rename(tmp.c_str(),target.c_str())!=0)
         throw Error("cannot replace file: "+target);
+    // rename() is atomic for readers, but durability also requires flushing the
+    // containing directory so the directory entry survives a sudden power loss.
+    std::string::size_type slash=target.find_last_of('/');
+    const std::string parent=(slash==std::string::npos)?".":(slash==0?"/":target.substr(0,slash));
+    int flags=O_RDONLY;
+#ifdef O_DIRECTORY
+    flags|=O_DIRECTORY;
+#endif
+    const int dirfd=::open(parent.c_str(),flags);
+    if(dirfd<0) throw Error("file replaced but cannot open containing directory for fsync: "+parent);
+    const int syncResult=::fsync(dirfd);
+    const int savedErrno=errno;
+    ::close(dirfd);
+    if(syncResult!=0){errno=savedErrno;throw Error("file replaced but directory fsync failed: "+parent);}
 #endif
 }
 
@@ -2937,6 +2957,9 @@ private:
 #ifdef _WIN32
     HANDLE writerLock_=INVALID_HANDLE_VALUE;
     std::string lockFile_;
+#else
+    int writerLockFd_=-1;
+    std::string lockFile_;
 #endif
     std::map<int,Entry> byId_;
     std::multimap<std::string,int> byStatus_,byDomain_;
@@ -3025,6 +3048,8 @@ public:
     ~IndexedResearchStore(){
 #ifdef _WIN32
         if(writerLock_!=INVALID_HANDLE_VALUE){CloseHandle(writerLock_);DeleteFileA(lockFile_.c_str());}
+#else
+        if(writerLockFd_>=0){(void)::flock(writerLockFd_,LOCK_UN);(void)::close(writerLockFd_);}
 #endif
     }
     void open(const std::string&root,std::ostream*out,bool writer=false){
@@ -3037,7 +3062,15 @@ public:
             if(writerLock_==INVALID_HANDLE_VALUE)throw Error("DATABASE ALREADY IN USE: "+root);
         }
 #else
-        (void)writer;
+        if(writer){
+            lockFile_=root+".lock";
+            writerLockFd_=::open(lockFile_.c_str(),O_CREAT|O_RDWR,0600);
+            if(writerLockFd_<0)throw Error("cannot open database lock: "+lockFile_);
+            if(::flock(writerLockFd_,LOCK_EX|LOCK_NB)!=0){
+                (void)::close(writerLockFd_);writerLockFd_=-1;
+                throw Error("DATABASE ALREADY IN USE: "+root);
+            }
+        }
 #endif
         {std::ifstream data(data_,std::ios::binary);if(!data){std::ofstream create(data_,std::ios::binary);if(!create)throw Error("cannot create database records");}}
         loadIndex(); recover(out);
@@ -4033,7 +4066,7 @@ class DiscoveryEngine {
     Euler kb;
     Gauss gauss;
     Meta meta;
-    Galois galois;
+    [[maybe_unused]] Galois galois;
     Ramanujan ram;
     Popper pop;
     Euclid euclid;
@@ -6251,6 +6284,7 @@ int mainImpl(int argc,char**argv){
 }
 } // namespace hilbert
 
+#ifndef HILBERT_NO_MAIN
 int main(int argc,char**argv){
     try{return hilbert::mainImpl(argc,argv);}
     catch(const std::exception&e){
@@ -6258,3 +6292,4 @@ int main(int argc,char**argv){
         return 2;
     }
 }
+#endif
